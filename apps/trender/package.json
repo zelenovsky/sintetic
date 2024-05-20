@@ -1,0 +1,33 @@
+{
+  "name": "trender",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate:types": "payload generate:types"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "3.0.0-beta.32",
+    "@payloadcms/next": "3.0.0-beta.32",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.32",
+    "next": "14.3.0-canary.37",
+    "payload": "3.0.0-beta.32",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.2",
+    "typescript": "^5.4.5"
+  }
+}

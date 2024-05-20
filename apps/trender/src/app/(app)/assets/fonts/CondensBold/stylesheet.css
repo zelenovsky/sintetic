@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Condens Bold';
+    src: local('Condens Bold'), local('CondensBold'),
+        url('CondensBold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

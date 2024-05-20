@@ -1,0 +1,12 @@
+.summary {
+  padding: 22px;
+  border: 1px solid var(--border-1);
+  border-radius: 2px;
+  background-color: var(--surface-1);
+  font-size: 14px;
+}
+
+.summary_title {
+  margin-inline-start: 1px;
+  margin-block-end: 21px;
+}

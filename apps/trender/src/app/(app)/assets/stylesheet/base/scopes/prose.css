@@ -1,0 +1,66 @@
+.s-prose {
+  font-family: 'TT Norms Pro Serif';
+  font-size: 16px;
+}
+
+.s-prose > img {
+  margin-block: 45px;
+}
+
+.s-prose figure {
+  margin-block: 45px;
+  margin-inline: 0;
+}
+
+.s-prose figcaption {
+  font-family: 'TT Norms Pro';
+  padding-inline: 16px;
+  padding-block: 19px;
+  font-size: 14px;
+  color: var(--text-figcaption);
+}
+
+.s-prose figcaption p {
+  margin: 0;
+}
+
+.s-prose p {
+  margin-block: 30px;
+  line-height: 150%;
+}
+
+.s-prose h2 {
+  font-size: var(--heading-2);
+  margin-block: 49px 20px;
+}
+
+.s-prose h3 {
+  font-size: var(--heading-3);
+  margin-block: 48px 11px;
+}
+
+.s-prose ul {
+  padding-inline-start: 24px;
+  margin: 0;
+  line-height: 150%;
+}
+
+.s-prose li {
+  position: relative;
+  list-style: none;
+}
+
+.s-prose li::before {
+  content: '';
+  position: absolute;
+  top: 0.7em;
+  left: -15px;
+  width: 0.2em;
+  height: 0.2em;
+  border-radius: 9999px;
+  background-color: currentcolor;
+}
+
+.s-prose li + li {
+  margin-block-start: 15px;
+}

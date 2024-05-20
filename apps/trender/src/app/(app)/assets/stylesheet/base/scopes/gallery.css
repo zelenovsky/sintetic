@@ -1,0 +1,121 @@
+.s-gallery {
+  margin-block: 45px;
+}
+
+.s-gallery p {
+  margin-block: 0;
+}
+
+.s-gallery .b-actions {
+  position: relative;
+}
+
+.s-gallery .b-action {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background-color: transparent;
+  color: transparent;
+  border: none;
+}
+
+.s-gallery .b-action.is-next {
+  right: 0;
+}
+
+.s-gallery .b-action.is-prev {
+  left: 0;
+}
+
+.s-gallery .b-images {
+  display: flex;
+  overflow: auto;
+}
+
+.s-gallery .b-images li {
+  flex-shrink: 0;
+  display: grid;
+  align-items: center;
+  width: 100%;
+  background-color: var(--surface-2);
+  border-radius: 2px;
+}
+
+.s-gallery .b-pagination {
+  display: flex;
+  gap: clamp(2px, var(--pagination-gap-size), 8px);
+  margin-block-start: 10px;
+}
+
+.s-gallery .b-pagination li {
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: var(--pagination-line-inactive);
+}
+
+.s-gallery .b-pagination li.is-active {
+  background-color: var(--pagination-line-active);
+}
+
+.s-gallery .b-numbers {
+  position: relative;
+  margin-top: 9px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.s-gallery .b-numbers .b-index {
+  position: absolute;
+  top: -3px;
+  right: 22px;
+}
+
+.s-gallery .b-numbers .b-gallery-size {
+  position: absolute;
+  bottom: -4px;
+  left: 17px;
+}
+
+.s-gallery .b-descriptions {
+  display: grid;
+  margin-block-start: 15px;
+}
+
+.s-gallery .b-descriptions li {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 16px;
+  background-color: var(--surface-0);
+  font-size: 14px;
+  font-family: 'TT Norms Pro';
+  font-weight: normal;
+  line-height: 140%;
+  color: var(--text-figcaption);
+}
+
+.s-gallery .b-descriptions li.is-active {
+  order: 1;
+}
+
+.s-gallery ul {
+  padding-inline-start: 0;
+}
+
+.s-gallery li + li {
+  margin-block-start: 0;
+}
+
+.s-gallery li::before {
+  content: none;
+}
+
+.s-gallery img {
+  display: block;
+  width: 100%;
+  max-width: initial;
+  margin-inline: 0;
+}

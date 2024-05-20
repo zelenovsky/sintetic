@@ -1,0 +1,15 @@
+.s-nav {
+  display: flex;
+  gap: 15px;
+}
+
+.s-nav a {
+  text-decoration: none;
+  font-size: 13px;
+  color: var(--text-inactive-0);
+}
+
+.s-nav a.is-active {
+  color: var(--text-active-0);
+  font-weight: 500;
+}

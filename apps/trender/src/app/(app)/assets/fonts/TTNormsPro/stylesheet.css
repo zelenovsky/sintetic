@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'TT Norms Pro';
+    src: local('TT Norms Pro Medium'), local('TTNormsPro-Medium'),
+        url('TTNormsPro-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Norms Pro';
+    src: local('TT Norms Pro Regular'), local('TTNormsPro-Regular'),
+        url('TTNormsPro-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

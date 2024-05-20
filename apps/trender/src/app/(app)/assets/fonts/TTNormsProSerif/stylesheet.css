@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'TT Norms Pro Serif';
+    src: local('TT Norms Pro Serif Normal'), local('TTNormsProSerif-Normal'),
+        url('TTNormsProSerif-Normal.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Norms Pro Serif';
+    src: local('TT Norms Pro Serif Normal Italic'), local('TTNormsProSerif-NormalItalic'),
+        url('TTNormsProSerif-NormalItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Norms Pro Serif';
+    src: local('TT Norms Pro Serif DemiBold'), local('TTNormsProSerif-DemiBold'),
+        url('TTNormsProSerif-DemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+

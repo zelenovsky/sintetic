@@ -1,0 +1,17 @@
+:root {
+  --surface-0: #fff;
+  --surface-1: #f7f7f7;
+  --surface-2: #ededed;
+  --border-1: #ededed;
+  --text-primary: #000;
+  --text-inactive-0: #535353;
+  --text-active-0: #000;
+  --text-figcaption: #2c2c2c;
+
+  --pagination-line-active: #3D3D3D;
+  --pagination-line-inactive: #ccc;
+
+  --text-external-product-link: #fff;
+  --surface-external-product-link: #000;
+  --shadow-external-product-link: #ccc;
+}

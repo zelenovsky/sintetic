@@ -1,0 +1,127 @@
+/* external-product */
+
+.s-post-external-product {
+  margin-block: 45px;
+}
+
+.s-post-external-product .b-gallery {
+  display: flex;
+  gap: 15px;
+  padding-inline-start: 0;
+}
+
+.s-post-external-product .b-gallery li {
+  margin-block-start: 0;
+  flex-shrink: 0;
+}
+
+.s-post-external-product .b-gallery li::before {
+  content: none;
+}
+
+.s-post-external-product .b-gallery img {
+  display: block;
+  aspect-ratio: 1 / 1;
+  width: 222px;
+  max-width: 222px;
+  margin-inline: 0;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.s-post-external-product .b-title {
+  margin-block-start: 20px;
+  font-family: 'TT Norms Pro';
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.s-post-external-product .b-price {
+  margin-block-start: 10px;
+  font-family: 'TT Norms Pro';
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.s-post-external-product .b-link {
+  margin-block-start: 16px;
+  font-family: 'TT Norms Pro';
+  font-size: 16px;
+  font-weight: 500;
+  display: grid;
+  place-items: center;
+  height: 48px;
+  background-color: var(--surface-external-product-link);
+  color: var(--text-external-product-link);
+  box-shadow: 4px 3px 0 0 var(--shadow-external-product-link);
+  border-radius: 2px;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+/* author */
+
+.s-post-author {
+  display: grid;
+  gap: 11px;
+  grid-template-columns: 43px 1fr;
+  align-items: end;
+  margin-top: 35px;
+}
+
+.s-post-author_avatar {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 9999px;
+  border: 1px solid #cfcfcf;
+}
+
+.s-post-author_name {
+  margin: 0;
+  font-family: 'Merriweather';
+  font-size: 13px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 120%;
+}
+
+.s-post-author_description {
+  margin-block: 2px 3px;
+  color: var(--text-primary-1);
+  font-family: 'Merriweather';
+  font-size: 12px;
+  font-style: normal;
+  line-height: 120%;
+}
+
+/* teaser */
+
+.s-post-teaser {
+  background-image: var(--surface-primary);
+  background-repeat: no-repeat;
+  border-radius: 20px 20px 0 0;
+  padding-block: 41px 24px;
+  color: white;
+}
+
+.s-post-teaser_image {
+  border-radius: 0 0 20px 20px;
+}
+
+/* html content */
+
+.s-post-teaser_content h1 {
+  font-family: 'Condens Bold';
+  font-size: 54px;
+  line-height: 85%;
+  margin-block-end: 30px;
+}
+
+.s-post-teaser_content p {
+  font-family: 'TT Norms Pro Serif';
+  font-weight: 500;
+  font-style: italic;
+  margin-inline: 12px;
+  line-height: 140%;
+}

@@ -1,0 +1,21 @@
+.s-header {
+  display: grid;
+  gap: 18px;
+  padding-block: 24px 18px;
+}
+
+.s-header_logo {
+  max-width: 142px;
+  margin-inline: auto;
+}
+
+.s-header-vertical {
+  display: grid;
+  grid-template-columns: 91px 1fr;
+  gap: 28px;
+  padding-block: 8px 10px;
+}
+
+.s-header-vertical .s-nav {
+  margin-top: 5px;
+}
