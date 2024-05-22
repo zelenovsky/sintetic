@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:types": "payload generate:types"
+    "generate:types": "payload generate:types",
+    "migrate": "payload migrate:create && payload migrate"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.0.0-beta.32",

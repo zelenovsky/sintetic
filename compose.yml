@@ -2,32 +2,25 @@ name: sintetic
 
 services:
   trender-ru-app:
+    container_name: trender-ru-app
     build:
       context: ./apps/trender/
-      args:
-        PAYLOAD_SECRET: cb99ac1a5aa2953a987d76dc
-        DATABASE_URL: postgresql://postgres@trender-ru-db:5432/trender-ru
-    ports:
-      - 3000:3000
     env_file:
-      - ./apps/trender/.env.ru
+      - ./apps/trender/.env.ru.local
     depends_on:
       - trender-ru-db
-    restart: always
-    networks:
-      - trender-network
+    ports:
+      - 3001:3000
 
   trender-ru-db:
+    container_name: trender-ru-db
     image: postgres:16.2-alpine3.19
     environment:
       POSTGRES_DB: trender-ru
       POSTGRES_USER: postgres
       POSTGRES_HOST: trender-ru-db
-      POSTGRES_PORT: 5432
       POSTGRES_HOST_AUTH_METHOD: trust
       PGDATA: /var/lib/postgresql/data/pgdata
-    ports:
-      - 5432:5432
     volumes:
       - trender_ru_pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -37,13 +30,37 @@ services:
       retries: 5
       start_period: 10s
     restart: always
-    networks:
-      - trender-network
+
+  trender-in-app:
+    container_name: trender-in-app
+    build:
+      context: ./apps/trender/
+    env_file:
+      - ./apps/trender/.env.in.local
+    depends_on:
+      - trender-in-db
+    ports:
+      - 3002:3000
+
+  trender-in-db:
+    container_name: trender-in-db
+    image: postgres:16.2-alpine3.19
+    environment:
+      POSTGRES_DB: trender-in
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: trender-in-db
+      POSTGRES_HOST_AUTH_METHOD: trust
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - trender_in_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d trender-in"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: always
 
 volumes:
   trender_ru_pgdata:
-
-networks:
-  trender-network:
-    driver: bridge
-    external: true
+  trender_in_pgdata:
