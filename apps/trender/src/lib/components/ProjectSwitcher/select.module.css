@@ -1,0 +1,24 @@
+.selectWrapper {
+  display: grid;
+  align-items: center;
+}
+
+.select {
+  appearance: none;
+  color: #14AE5C;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  padding-right: 20px;
+  outline: none;
+}
+
+.svg {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  margin-left: auto;
+  width: 10px;
+  pointer-events: none;
+}

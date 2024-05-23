@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.sinteticLogo {
+  width: 100px;
+  height: 30px;
+  margin-bottom: 16px;
+  margin-right: 14px;
+}

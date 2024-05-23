@@ -12,12 +12,17 @@ import Tags from './collections/Tags'
 
 import { postEditor } from './editor/config'
 
+import ProjectSwitcher from '@/lib/components/ProjectSwitcher'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
     user: Users.slug,
+    components: {
+      actions: [ProjectSwitcher],
+    }
   },
   collections: [Users, Articles, Media, Verticals, Tags],
   editor: postEditor,
@@ -35,6 +40,12 @@ export default buildConfig({
     defaultLocale: process.env.LOCALES?.split(',')[0] ?? 'en',
     fallback: false,
   },
+  custom: {
+    projectDomains: [
+      'ru.sintetic.io',
+      'in.sintetic.io',
+    ]
+  }
 
   // Sharp is now an optional dependency -
   // if you want to resize images, crop, set focal point, etc.
