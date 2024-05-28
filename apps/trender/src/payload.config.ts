@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { S3Client } from '@aws-sdk/client-s3'
 import path from 'path'
 import { buildConfig } from 'payload/config'
 // import sharp from 'sharp'
@@ -11,6 +12,8 @@ import Verticals from './collections/Verticals'
 import Tags from './collections/Tags'
 
 import { postEditor } from './editor/config'
+
+import s3 from './plugins/s3'
 
 import ProjectSwitcher from '@/lib/components/ProjectSwitcher'
 
@@ -45,7 +48,22 @@ export default buildConfig({
       'ru.sintetic.io',
       'in.sintetic.io',
     ]
-  }
+  },
+  plugins: [
+    s3({
+      bucket: 'sintetic-assets',
+      folder: 'images',
+      client: new S3Client({
+        forcePathStyle: false,
+        region: 'sfo3',
+        endpoint: process.env.S3_ENDPOINT,
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID ?? '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
+        },
+      })
+    }),
+  ],
 
   // Sharp is now an optional dependency -
   // if you want to resize images, crop, set focal point, etc.

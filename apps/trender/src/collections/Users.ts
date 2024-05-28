@@ -1,4 +1,4 @@
-import { isAdmin } from '../access/admin'
+import { isAdminOrSuperAdmin } from '../access/admin'
 import type { CollectionConfig } from 'payload/types'
 
 export default {
@@ -26,8 +26,8 @@ export default {
       type: 'select',
       access: {
         read: () => true,
-        create: isAdmin,
-        update: isAdmin,
+        create: isAdminOrSuperAdmin,
+        update: isAdminOrSuperAdmin,
       },
       options: [
         { label: 'Super Admin', value: 'super_admin' },

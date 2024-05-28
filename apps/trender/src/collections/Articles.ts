@@ -101,6 +101,7 @@ export default {
       name: 'vertical',
       type: 'relationship',
       relationTo: 'verticals',
+      required: true,
       admin: {
         position: 'sidebar',
       }

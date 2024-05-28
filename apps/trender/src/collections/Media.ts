@@ -1,23 +1,46 @@
-import { CollectionConfig } from 'payload/types'
+import { isAdminOrSuperAdmin } from '../access/admin'
+import type { CollectionConfig } from 'payload/types'
 
 export default {
   slug: 'media',
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: 'alt',
   },
   access: {
     read: () => true,
-    delete: () => false
+    delete: isAdminOrSuperAdmin
   },
   fields: [
     {
-      name: "alt",
-      type: "text",
+      name: 'alt',
+      type: 'text',
       localized: true,
+    },
+    {
+      name: 'url',
+      type: 'text',
+      access: {
+        create: () => false,
+      },
+      admin: {
+        disabled: true,
+      },
+      hooks: {
+        afterRead: [
+          ({ data }) => {
+            const doc = data as any
+            return `https://sintetic-assets.sfo3.digitaloceanspaces.com/images/${doc.filename}`
+          },
+        ],
+      },
     },
   ],
   upload: {
-    staticDir: "media",
-    mimeTypes: ["image/*"],
+    staticDir: 'assets',
+    mimeTypes: ['image/*'],
+    disableLocalStorage: true,
+    adminThumbnail: ({ doc }: { doc: any }) => {
+      return `https://sintetic-assets.sfo3.digitaloceanspaces.com/images/${doc.filename}`
+    },
   },
 } satisfies CollectionConfig
