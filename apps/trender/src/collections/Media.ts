@@ -1,4 +1,4 @@
-import { isAdminOrSuperAdmin } from '../access/admin'
+import { isAdminOrSuperAdmin } from '../access/fields'
 import type { CollectionConfig } from 'payload/types'
 
 export default {

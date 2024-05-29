@@ -15,7 +15,7 @@ import { postEditor } from './editor/config'
 
 import s3 from './plugins/s3'
 
-import ProjectSwitcher from '@/lib/components/ProjectSwitcher'
+import ProjectSwitcher from '@/lib/components/admin/ProjectSwitcher'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

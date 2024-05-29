@@ -1,4 +1,6 @@
 import { lexicalHTML } from '@payloadcms/richtext-lexical'
+import { isAdminOrSuperAdminOrSelf } from '../access/articles'
+import PreviewLink from '@/lib/components/admin/PreviewLink'
 import type { CollectionConfig } from 'payload/types'
 
 export default {
@@ -6,6 +8,27 @@ export default {
   admin: {
     useAsTitle: 'title',
     group: 'Content',
+  },
+  access: {
+    read: ({ req }) => {
+      // If there is a user logged in,
+      // let them retrieve all documents
+      if (req.user) return true
+
+      // If there is no user,
+      // restrict the documents that are returned
+      // to only those where `_status` is equal to `published`
+      return {
+        _status: {
+          equals: 'published',
+        },
+      }
+    },
+    update: isAdminOrSuperAdminOrSelf,
+    delete: isAdminOrSuperAdminOrSelf
+  },
+  versions: {
+    drafts: true,
   },
   fields: [
     {
@@ -58,32 +81,6 @@ export default {
       ]
     },
     {
-      name: 'status',
-      type: 'select',
-      options: [
-        {
-          value: 'draft',
-          label: 'Draft',
-        },
-        {
-          value: 'published',
-          label: 'Published',
-        },
-      ],
-      defaultValue: 'draft',
-      admin: {
-        position: 'sidebar',
-      }
-    },
-    {
-      label: 'Published Date',
-      name: 'published_date',
-      type: 'date',
-      admin: {
-        position: 'sidebar',
-      }
-    },
-    {
       name: 'author',
       type: 'relationship',
       relationTo: 'users',
@@ -124,5 +121,15 @@ export default {
         position: 'sidebar',
       }
     },
+    {
+      name: 'preview',
+      type: 'ui',
+      admin: {
+        position: 'sidebar',
+        components: {
+          Field: PreviewLink
+        }
+      }
+    }
   ],
 } satisfies CollectionConfig
