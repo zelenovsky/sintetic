@@ -10,26 +10,51 @@ type Params = {
   slug: string
 }
 
-export default async function ArticlePage({ params }: { params: Params }) {
+type Props = {
+  params: Params
+  searchParams: Record<string, string>
+}
+
+export default async function ArticlePage({ params, searchParams }: Props) {
   const payload = await getPayload({ config: configPromise })
 
-  const { docs } = await payload.find({
-    collection: 'articles',
-    where: {
-      id: {
-        equals: params.id
-      },
-      'vertical.slug': {
-        equals: params.slug
-      },
-    },
-    limit: 1,
-    // locale: 'ru',
-    pagination: false
-  })
+  let doc: Article | null = null
 
-  if (docs.length === 0) {
-    return <div className='container'>Article not found</div>
+  if (searchParams.version) {
+    try {
+      const { version } = await payload.findVersionByID({
+        collection: 'articles',
+        id: searchParams.version
+      })
+  
+      doc = version
+    } catch (_) {}
+  } else {
+    const { docs } = await payload.find({
+      collection: 'articles',
+      where: {
+        id: {
+          equals: params.id
+        },
+        'vertical.slug': {
+          equals: params.slug
+        },
+        _status: {
+          equals: 'published'
+        }
+      },
+      limit: 1,
+      // locale: 'ru',
+      pagination: false
+    })
+
+    if (docs.length > 0) {
+      doc = docs[0]
+    }
+  }
+
+  if (!doc) {
+    return <div className='container'>Article is not found</div>
   }
 
   const { docs: verticals } = await payload.find({
@@ -43,8 +68,6 @@ export default async function ArticlePage({ params }: { params: Params }) {
     // locale: 'ru',
     pagination: false
   })
-
-  const doc = docs[0] as Article
 
   const author = doc.author as User
 

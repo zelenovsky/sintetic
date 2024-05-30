@@ -29,6 +29,7 @@ export default {
   },
   versions: {
     drafts: true,
+    maxPerDoc: 10,
   },
   fields: [
     {

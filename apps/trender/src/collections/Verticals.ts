@@ -24,18 +24,20 @@ export default {
             {
               label: 'Dark CSS',
               name: 'theme_dark_css',
-              type: 'code',
-              admin: {
-                language: 'css',
-              },
+              type: 'textarea',
+              // type: 'code',
+              // admin: {
+              //   language: 'css',
+              // },
             },
             {
               label: 'Light CSS',
               name: 'theme_light_css',
-              type: 'code',
-              admin: {
-                language: 'css',
-              },
+              type: 'textarea',
+              // type: 'code',
+              // admin: {
+              //   language: 'css',
+              // },
             },
           ]
         }
