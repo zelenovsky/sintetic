@@ -25,7 +25,13 @@ export default buildConfig({
     user: Users.slug,
     components: {
       actions: [ProjectSwitcher],
-    }
+    },
+    custom: {
+      projectDomains: [
+        'ru.sintetic.io',
+        'in.sintetic.io',
+      ]
+    },
   },
   collections: [Users, Articles, Media, Verticals, Tags],
   editor: postEditor,
@@ -42,12 +48,6 @@ export default buildConfig({
     locales: process.env.LOCALES?.split(',') ?? ['en'],
     defaultLocale: process.env.LOCALES?.split(',')[0] ?? 'en',
     fallback: false,
-  },
-  custom: {
-    projectDomains: [
-      'ru.sintetic.io',
-      'in.sintetic.io',
-    ]
   },
   plugins: [
     s3({

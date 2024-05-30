@@ -1,14 +1,12 @@
 'use client'
 import { useEffect, useState, type ChangeEvent } from 'react'
+import { useConfig } from '@payloadcms/ui/providers/Config'
 import s from './select.module.css'
-
-type Props = {
-  domains: string[]
-}
 
 const url = new URL(window.location.href)
 
-export default function Select({ domains }: Props) {
+export default function Select() {
+  const c = useConfig()
   const [accessAllowed, setAccessAllowed] = useState(false)
 
   useEffect(() => {
@@ -27,6 +25,8 @@ export default function Select({ domains }: Props) {
   }
 
   if (accessAllowed) {
+    const domains = c.admin.custom.projectDomains as string[]
+
     return (
       <div className={s.selectWrapper}>
         <select
