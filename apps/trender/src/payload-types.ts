@@ -87,13 +87,12 @@ export interface Article {
     [k: string]: unknown;
   } | null;
   content_html?: string | null;
-  status?: ('draft' | 'published') | null;
-  published_date?: string | null;
   author: number | User;
-  vertical?: (number | null) | Vertical;
+  vertical: number | Vertical;
   tags?: (number | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

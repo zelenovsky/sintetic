@@ -3,9 +3,8 @@ import { useEffect, useState, type ChangeEvent } from 'react'
 import { useConfig } from '@payloadcms/ui/providers/Config'
 import s from './select.module.css'
 
-const url = new URL(window.location.href)
-
 export default function Select() {
+  const url = new URL(window.location.href)
   const c = useConfig()
   const [accessAllowed, setAccessAllowed] = useState(false)
 

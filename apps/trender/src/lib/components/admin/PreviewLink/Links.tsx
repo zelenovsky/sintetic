@@ -2,9 +2,8 @@
 import { useDocumentInfo } from '@payloadcms/ui/providers/DocumentInfo'
 import { useEffect, useState } from 'react'
 
-const url = new URL(window.location.href)
-
 export default function Links() {
+  const url = new URL(window.location.href)
   const d = useDocumentInfo()
   const [previewUrl, setPreviewUrl] = useState('')
 
