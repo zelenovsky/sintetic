@@ -31,24 +31,24 @@ services:
       start_period: 10s
     restart: always
 
-  trender-in-app:
-    container_name: trender-in-app
+  trender-hi-app:
+    container_name: trender-hi-app
     build:
       context: ./apps/trender/
     env_file:
-      - ./apps/trender/.env.in.local
+      - ./apps/trender/.env.hi.local
     depends_on:
-      - trender-in-db
+      - trender-hi-db
     ports:
       - 3002:3000
 
-  trender-in-db:
-    container_name: trender-in-db
+  trender-hi-db:
+    container_name: trender-hi-db
     image: postgres:16.2-alpine3.19
     environment:
-      POSTGRES_DB: trender-in
+      POSTGRES_DB: trender-hi
       POSTGRES_USER: postgres
-      POSTGRES_HOST: trender-in-db
+      POSTGRES_HOST: trender-hi-db
       POSTGRES_HOST_AUTH_METHOD: trust
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
@@ -63,4 +63,4 @@ services:
 
 volumes:
   trender_ru_pgdata:
-  trender_in_pgdata:
+  trender_hi_pgdata:

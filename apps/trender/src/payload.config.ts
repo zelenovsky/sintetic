@@ -27,10 +27,7 @@ export default buildConfig({
       actions: [ProjectSwitcher],
     },
     custom: {
-      projectDomains: [
-        'ru.sintetic.io',
-        'in.sintetic.io',
-      ]
+      projectDomains: ['ru.sintetic.io', 'in.sintetic.io'],
     },
   },
   collections: [Users, Articles, Media, Verticals, Tags],
@@ -45,8 +42,8 @@ export default buildConfig({
     },
   }),
   localization: {
-    locales: process.env.LOCALES?.split(',') ?? ['en'],
-    defaultLocale: process.env.LOCALES?.split(',')[0] ?? 'en',
+    locales: process.env.LOCALES?.split(',') ?? ['en-US'],
+    defaultLocale: process.env.LOCALES?.split(',')[0] ?? 'en-US',
     fallback: false,
   },
   plugins: [
@@ -61,7 +58,7 @@ export default buildConfig({
           accessKeyId: process.env.S3_ACCESS_KEY_ID ?? '',
           secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
         },
-      })
+      }),
     }),
   ],
 

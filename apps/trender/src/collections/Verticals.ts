@@ -9,11 +9,11 @@ export default {
     {
       name: 'title',
       type: 'text',
-      localized: true
+      localized: true,
     },
     {
       name: 'slug',
-      type: 'text'
+      type: 'text',
     },
     {
       type: 'tabs',
@@ -39,9 +39,9 @@ export default {
               //   language: 'css',
               // },
             },
-          ]
-        }
-      ]
-    }
+          ],
+        },
+      ],
+    },
   ],
 } satisfies CollectionConfig

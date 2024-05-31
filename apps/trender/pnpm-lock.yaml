@@ -32,6 +32,9 @@ dependencies:
   react-dom:
     specifier: ^18.3.1
     version: 18.3.1(react@18.3.1)
+  resolve-accept-language:
+    specifier: ^3.1.4
+    version: 3.1.4
   sharp:
     specifier: ^0.33.4
     version: 0.33.4
@@ -6462,6 +6465,11 @@ packages:
   /require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /resolve-accept-language@3.1.4:
+    resolution: {integrity: sha512-DQRxwkorvukwbGTgfR6x9bOP0VgB1nWiERLUwubNrivTNZKX0vWgHD6x03NIgykLNET+6YPtV5bxJiNXGIQX7A==}
+    engines: {node: ^14.18.1 || >=16.0.0}
     dev: false
 
   /resolve-from@4.0.0:

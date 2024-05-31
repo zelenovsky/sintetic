@@ -4,12 +4,18 @@ import Logo from '@/lib/svg-icons/logo'
 
 import type { Vertical } from '@payload-types'
 
-export default async function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: {
+    lang: string
+  }
+}) {
   const payload = await getPayload({ config: configPromise })
 
   const { docs: verticals } = await payload.find({
     collection: 'verticals',
-    // locale: 'ru'
+    locale: params.lang,
   })
 
   const nav = verticals.map((vertical: Vertical) => {
@@ -17,7 +23,7 @@ export default async function HomePage() {
       id: vertical.id,
       title: vertical.title,
       slug: vertical.slug,
-      url: `/${vertical.slug}`, // todo: change to subdomains on prod
+      url: `/${vertical.slug}`,
     }
   })
 
@@ -29,11 +35,11 @@ export default async function HomePage() {
         </a>
 
         <nav className="s-nav">
-          {nav.map(item => (
+          {nav.map((item) => (
             <a
               key={item.id}
               href={item.url}
-              className={item.slug === 'tech' ? "is-active" : ''}
+              className={item.slug === 'tech' ? 'is-active' : ''}
             >
               {item.title}
             </a>
@@ -41,10 +47,8 @@ export default async function HomePage() {
         </nav>
       </header>
 
-      <main className='container'>
-        <h1>
-          Home
-        </h1>
+      <main className="container">
+        <h1>Home</h1>
       </main>
     </>
   )

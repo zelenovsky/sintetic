@@ -13,18 +13,19 @@ import type { Vertical } from '@payload-types'
 
 export default async function VerticalLayout({
   children,
-  params
+  params,
 }: Readonly<{
-  children: React.ReactNode,
+  children: React.ReactNode
   params: {
-    slug: string
+    lang: string
+    vertical: string
   }
 }>) {
   const payload = await getPayload({ config: configPromise })
 
   const { docs: verticals } = await payload.find({
     collection: 'verticals',
-    // locale: 'ru',
+    locale: params.lang,
   })
 
   const nav = verticals.map((vertical: Vertical) => {
@@ -44,11 +45,11 @@ export default async function VerticalLayout({
         </a>
 
         <nav className="s-nav">
-          {nav.map(item => (
+          {nav.map((item) => (
             <Link
               key={item.id}
               href={item.url}
-              className={item.slug === params.slug ? "is-active" : ''}
+              className={item.slug === params.vertical ? 'is-active' : ''}
             >
               {item.title}
             </Link>
@@ -56,9 +57,7 @@ export default async function VerticalLayout({
         </nav>
       </header>
 
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
     </>
   )
 }

@@ -7,7 +7,8 @@ import type { Article, User, Media } from '@payload-types'
 
 type Params = {
   id: string
-  slug: string
+  vertical: string
+  lang: string
 }
 
 type Props = {
@@ -24,28 +25,26 @@ export default async function ArticlePage({ params, searchParams }: Props) {
     try {
       const { version } = await payload.findVersionByID({
         collection: 'articles',
-        id: searchParams.version
+        id: searchParams.version,
       })
-  
+
       doc = version
     } catch (_) {}
   } else {
     const { docs } = await payload.find({
       collection: 'articles',
+      locale: params.lang,
       where: {
         id: {
-          equals: params.id
+          equals: params.id,
         },
         'vertical.slug': {
-          equals: params.slug
+          equals: params.vertical,
         },
         _status: {
-          equals: 'published'
-        }
+          equals: 'published',
+        },
       },
-      limit: 1,
-      // locale: 'ru',
-      pagination: false
     })
 
     if (docs.length > 0) {
@@ -54,25 +53,23 @@ export default async function ArticlePage({ params, searchParams }: Props) {
   }
 
   if (!doc) {
-    return <div className='container'>Article is not found</div>
+    return <div className="container">Article is not found</div>
   }
 
   const { docs: verticals } = await payload.find({
     collection: 'verticals',
+    locale: params.lang,
     where: {
       slug: {
-        equals: params.slug
+        equals: params.vertical,
       },
     },
-    limit: 1,
-    // locale: 'ru',
-    pagination: false
   })
 
   const author = doc.author as User
 
   return (
-    <article className='s-post'>
+    <article className="s-post">
       {verticals.length > 0 && (
         <style>
           {`
@@ -84,14 +81,12 @@ export default async function ArticlePage({ params, searchParams }: Props) {
         </style>
       )}
 
-      <Script src='/javascript/gallery.js' strategy='afterInteractive' />
+      <Script src="/javascript/gallery.js" strategy="afterInteractive" />
 
-      <section className='s-post-teaser container'>
-        {params.slug === 'tech' && (
-          <TechLogo />
-        )}
+      <section className="s-post-teaser container">
+        {params.vertical === 'tech' && <TechLogo />}
 
-        <div className='s-post-teaser_content'>
+        <div className="s-post-teaser_content">
           <h1>{doc.title}</h1>
           <p>{doc.description}</p>
         </div>
@@ -107,12 +102,12 @@ export default async function ArticlePage({ params, searchParams }: Props) {
         <img
           src={(doc.teaser_image as Media).url ?? ''}
           alt={(doc.teaser_image as Media).alt ?? ''}
-          className='s-post-teaser_image'
+          className="s-post-teaser_image"
         />
       )}
 
       <section
-        className='container s-prose'
+        className="container s-prose"
         dangerouslySetInnerHTML={{ __html: doc.content_html as string }}
       />
     </article>
