@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import Logo from '@/lib/svg-icons/logo'
+import Logo from '@/lib/svg-icons/Logo'
 import Link from 'next/link'
 
 import type { Metadata } from 'next'
@@ -25,6 +25,7 @@ export default async function VerticalLayout({
 
   const { docs: verticals } = await payload.find({
     collection: 'verticals',
+    // @ts-ignore
     locale: params.lang,
   })
 
@@ -33,7 +34,7 @@ export default async function VerticalLayout({
       id: vertical.id,
       title: vertical.title,
       slug: vertical.slug,
-      url: `/${vertical.slug}`, // todo: change to subdomains on prod
+      url: `/${vertical.slug}`,
     }
   })
 

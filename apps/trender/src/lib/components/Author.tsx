@@ -6,10 +6,16 @@ type Props = {
   description: string
 }
 
-export default function Author({ avatar_url, name, description}: Props) {
+export default function Author({ avatar_url, name, description }: Props) {
   return (
     <address className="s-post-author">
-      <Image src={avatar_url} alt={name} className="s-post-author_avatar" width={300} height={300} />
+      <Image
+        src={avatar_url}
+        alt={name}
+        className="s-post-author_avatar"
+        width={300}
+        height={300}
+      />
       <div>
         <p className="s-post-author_name">{name}</p>
         <p className="s-post-author_description">{description}</p>

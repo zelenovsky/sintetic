@@ -33,6 +33,7 @@ export default async function ArticlePage({ params, searchParams }: Props) {
   } else {
     const { docs } = await payload.find({
       collection: 'articles',
+      // @ts-ignore
       locale: params.lang,
       where: {
         id: {
@@ -58,6 +59,7 @@ export default async function ArticlePage({ params, searchParams }: Props) {
 
   const { docs: verticals } = await payload.find({
     collection: 'verticals',
+    // @ts-ignore
     locale: params.lang,
     where: {
       slug: {

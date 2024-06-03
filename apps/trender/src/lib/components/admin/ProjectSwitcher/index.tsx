@@ -1,4 +1,4 @@
-import SinteticLogo from '@/lib/svg-icons/sintetic-logo'
+import SinteticLogo from '@/lib/svg-icons/SinteticLogo'
 import Select from './Select'
 import s from './project-switcher.module.css'
 

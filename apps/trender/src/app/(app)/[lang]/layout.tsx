@@ -1,7 +1,10 @@
 import '../assets/stylesheet/base/index.css'
-
 import type { Metadata } from 'next'
-import { dir } from '../dictionaries'
+
+import Tapbar from '@/lib/components/Tapbar'
+import HomeIcon from '@/lib/svg-icons/Home'
+import UserIcon from '@/lib/svg-icons/User'
+import { dir, getDictionary, type SupportedLocales } from '../dictionaries'
 
 export default async function RootLayout({
   children,
@@ -12,9 +15,28 @@ export default async function RootLayout({
     lang: string
   }
 }>) {
+  const t = await getDictionary(params.lang as SupportedLocales)
+
+  const nav_links = [
+    {
+      href: '/',
+      text: t.tapbar.home.link_text,
+      svg_icon: HomeIcon,
+    },
+    {
+      href: '/user',
+      text: t.tapbar.user.link_text,
+      svg_icon: UserIcon,
+    },
+  ]
+
   return (
     <html lang={params.lang} dir={dir(params.lang)}>
-      <body>{children}</body>
+      <body>
+        {children}
+
+        <Tapbar links={nav_links} />
+      </body>
     </html>
   )
 }

@@ -1,0 +1,27 @@
+.container {
+  display: block;
+  width: 100vw;
+  height: 58px;
+  flex-shrink: 0;
+  background-color: var(--tapbar-bg);
+}
+
+.tapbar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 58px;
+  /* backdrop-filter: blur(10px); */
+  background-color: var(--tapbar-bg);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}

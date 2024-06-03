@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import Logo from '@/lib/svg-icons/logo'
+import Logo from '@/lib/svg-icons/Logo'
 
 import type { Vertical } from '@payload-types'
 
@@ -15,6 +15,7 @@ export default async function HomePage({
 
   const { docs: verticals } = await payload.find({
     collection: 'verticals',
+    // @ts-ignore
     locale: params.lang,
   })
 

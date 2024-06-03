@@ -10,7 +10,7 @@ const dictionaries: { [key in SupportedLocales]: () => Promise<any> } = {
   'hi-IN': () => import('./hi-IN.json').then((module) => module.default),
 }
 
-const getDitcionary = async (locale: SupportedLocales) => {
+const getDictionary = async (locale: SupportedLocales) => {
   return dictionaries[locale]()
 }
 
@@ -86,4 +86,4 @@ const dir = (lang: string) => {
   return 'ltr'
 }
 
-export { dir, getDitcionary, supportedLocales }
+export { dir, getDictionary, supportedLocales, type SupportedLocales }

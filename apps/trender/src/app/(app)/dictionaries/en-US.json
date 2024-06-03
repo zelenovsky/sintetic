@@ -1,3 +1,10 @@
 {
-  "menu": "Menu"
+  "tapbar": {
+    "home": {
+      "link_text": "Home"
+    },
+    "user": {
+      "link_text": "User"
+    }
+  }
 }
