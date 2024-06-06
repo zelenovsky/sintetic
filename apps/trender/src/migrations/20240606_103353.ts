@@ -4,13 +4,13 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 await payload.db.drizzle.execute(sql`
 
 DO $$ BEGIN
- CREATE TYPE "_locales" AS ENUM('en');
+ CREATE TYPE "_locales" AS ENUM('en-US');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 
 DO $$ BEGIN
- CREATE TYPE "enum_users_role" AS ENUM('super_admin', 'admin', 'user', 'editor');
+ CREATE TYPE "enum_admins_role" AS ENUM('super_admin', 'admin', 'editor');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -29,9 +29,26 @@ END $$;
 
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
+	"email" varchar NOT NULL,
 	"phone" varchar,
 	"name" varchar,
-	"role" "enum_users_role" NOT NULL,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "users_rels" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"media_id" integer
+);
+
+CREATE TABLE IF NOT EXISTS "admins" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"phone" varchar,
+	"name" varchar,
+	"role" "enum_admins_role" NOT NULL,
 	"description" varchar,
 	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
@@ -44,7 +61,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"lock_until" timestamp(3) with time zone
 );
 
-CREATE TABLE IF NOT EXISTS "users_rels" (
+CREATE TABLE IF NOT EXISTS "admins_rels" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"order" integer,
 	"parent_id" integer NOT NULL,
@@ -77,7 +94,7 @@ CREATE TABLE IF NOT EXISTS "articles_rels" (
 	"parent_id" integer NOT NULL,
 	"path" varchar NOT NULL,
 	"media_id" integer,
-	"users_id" integer,
+	"admins_id" integer,
 	"verticals_id" integer,
 	"tags_id" integer
 );
@@ -111,7 +128,7 @@ CREATE TABLE IF NOT EXISTS "_articles_v_rels" (
 	"path" varchar NOT NULL,
 	"articles_id" integer,
 	"media_id" integer,
-	"users_id" integer,
+	"admins_id" integer,
 	"verticals_id" integer,
 	"tags_id" integer
 );
@@ -176,6 +193,22 @@ CREATE TABLE IF NOT EXISTS "tags_rels" (
 	"verticals_id" integer
 );
 
+CREATE TABLE IF NOT EXISTS "magic_links" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"token" varchar NOT NULL,
+	"expires_at" timestamp(3) with time zone NOT NULL,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "magic_links_rels" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"users_id" integer
+);
+
 CREATE TABLE IF NOT EXISTS "payload_preferences" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"key" varchar,
@@ -189,7 +222,7 @@ CREATE TABLE IF NOT EXISTS "payload_preferences_rels" (
 	"order" integer,
 	"parent_id" integer NOT NULL,
 	"path" varchar NOT NULL,
-	"users_id" integer
+	"admins_id" integer
 );
 
 CREATE TABLE IF NOT EXISTS "payload_migrations" (
@@ -201,10 +234,14 @@ CREATE TABLE IF NOT EXISTS "payload_migrations" (
 );
 
 CREATE INDEX IF NOT EXISTS "users_created_at_idx" ON "users" ("created_at");
-CREATE UNIQUE INDEX IF NOT EXISTS "users_email_idx" ON "users" ("email");
 CREATE INDEX IF NOT EXISTS "users_rels_order_idx" ON "users_rels" ("order");
 CREATE INDEX IF NOT EXISTS "users_rels_parent_idx" ON "users_rels" ("parent_id");
 CREATE INDEX IF NOT EXISTS "users_rels_path_idx" ON "users_rels" ("path");
+CREATE INDEX IF NOT EXISTS "admins_created_at_idx" ON "admins" ("created_at");
+CREATE UNIQUE INDEX IF NOT EXISTS "admins_email_idx" ON "admins" ("email");
+CREATE INDEX IF NOT EXISTS "admins_rels_order_idx" ON "admins_rels" ("order");
+CREATE INDEX IF NOT EXISTS "admins_rels_parent_idx" ON "admins_rels" ("parent_id");
+CREATE INDEX IF NOT EXISTS "admins_rels_path_idx" ON "admins_rels" ("path");
 CREATE INDEX IF NOT EXISTS "articles_created_at_idx" ON "articles" ("created_at");
 CREATE INDEX IF NOT EXISTS "articles_rels_order_idx" ON "articles_rels" ("order");
 CREATE INDEX IF NOT EXISTS "articles_rels_parent_idx" ON "articles_rels" ("parent_id");
@@ -223,6 +260,10 @@ CREATE INDEX IF NOT EXISTS "tags_created_at_idx" ON "tags" ("created_at");
 CREATE INDEX IF NOT EXISTS "tags_rels_order_idx" ON "tags_rels" ("order");
 CREATE INDEX IF NOT EXISTS "tags_rels_parent_idx" ON "tags_rels" ("parent_id");
 CREATE INDEX IF NOT EXISTS "tags_rels_path_idx" ON "tags_rels" ("path");
+CREATE INDEX IF NOT EXISTS "magic_links_created_at_idx" ON "magic_links" ("created_at");
+CREATE INDEX IF NOT EXISTS "magic_links_rels_order_idx" ON "magic_links_rels" ("order");
+CREATE INDEX IF NOT EXISTS "magic_links_rels_parent_idx" ON "magic_links_rels" ("parent_id");
+CREATE INDEX IF NOT EXISTS "magic_links_rels_path_idx" ON "magic_links_rels" ("path");
 CREATE INDEX IF NOT EXISTS "payload_preferences_key_idx" ON "payload_preferences" ("key");
 CREATE INDEX IF NOT EXISTS "payload_preferences_created_at_idx" ON "payload_preferences" ("created_at");
 CREATE INDEX IF NOT EXISTS "payload_preferences_rels_order_idx" ON "payload_preferences_rels" ("order");
@@ -237,6 +278,18 @@ END $$;
 
 DO $$ BEGIN
  ALTER TABLE "users_rels" ADD CONSTRAINT "users_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "media"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "admins_rels" ADD CONSTRAINT "admins_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "admins"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "admins_rels" ADD CONSTRAINT "admins_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "media"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -260,7 +313,7 @@ EXCEPTION
 END $$;
 
 DO $$ BEGIN
- ALTER TABLE "articles_rels" ADD CONSTRAINT "articles_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "users"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "articles_rels" ADD CONSTRAINT "articles_rels_admins_fk" FOREIGN KEY ("admins_id") REFERENCES "admins"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -302,7 +355,7 @@ EXCEPTION
 END $$;
 
 DO $$ BEGIN
- ALTER TABLE "_articles_v_rels" ADD CONSTRAINT "_articles_v_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "users"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "_articles_v_rels" ADD CONSTRAINT "_articles_v_rels_admins_fk" FOREIGN KEY ("admins_id") REFERENCES "admins"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -350,13 +403,25 @@ EXCEPTION
 END $$;
 
 DO $$ BEGIN
+ ALTER TABLE "magic_links_rels" ADD CONSTRAINT "magic_links_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "magic_links"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+ ALTER TABLE "magic_links_rels" ADD CONSTRAINT "magic_links_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
  ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "payload_preferences"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 
 DO $$ BEGIN
- ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "users"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_admins_fk" FOREIGN KEY ("admins_id") REFERENCES "admins"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -369,6 +434,8 @@ await payload.db.drizzle.execute(sql`
 
 DROP TABLE "users";
 DROP TABLE "users_rels";
+DROP TABLE "admins";
+DROP TABLE "admins_rels";
 DROP TABLE "articles";
 DROP TABLE "articles_locales";
 DROP TABLE "articles_rels";
@@ -382,6 +449,8 @@ DROP TABLE "verticals_locales";
 DROP TABLE "tags";
 DROP TABLE "tags_locales";
 DROP TABLE "tags_rels";
+DROP TABLE "magic_links";
+DROP TABLE "magic_links_rels";
 DROP TABLE "payload_preferences";
 DROP TABLE "payload_preferences_rels";
 DROP TABLE "payload_migrations";`);

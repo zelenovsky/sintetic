@@ -1,5 +1,5 @@
 {
-  "id": "75127350-2de8-45fd-9e4b-f4d293c5b702",
+  "id": "e68f899b-0ce0-4616-921d-d3de113c807d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -14,6 +14,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
         "phone": {
           "name": "phone",
           "type": "varchar",
@@ -22,18 +28,6 @@
         },
         "name": {
           "name": "name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "role": {
-          "name": "role",
-          "type": "enum_users_role",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -51,48 +45,6 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
-        },
-        "email": {
-          "name": "email",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "reset_password_token": {
-          "name": "reset_password_token",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "reset_password_expiration": {
-          "name": "reset_password_expiration",
-          "type": "timestamp(3) with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "salt": {
-          "name": "salt",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "hash": {
-          "name": "hash",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "login_attempts": {
-          "name": "login_attempts",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "lock_until": {
-          "name": "lock_until",
-          "type": "timestamp(3) with time zone",
-          "primaryKey": false,
-          "notNull": false
         }
       },
       "indexes": {
@@ -102,13 +54,6 @@
             "created_at"
           ],
           "isUnique": false
-        },
-        "users_email_idx": {
-          "name": "users_email_idx",
-          "columns": [
-            "email"
-          ],
-          "isUnique": true
         }
       },
       "foreignKeys": {},
@@ -190,6 +135,206 @@
         "users_rels_media_fk": {
           "name": "users_rels_media_fk",
           "tableFrom": "users_rels",
+          "tableTo": "media",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "admins": {
+      "name": "admins",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "enum_admins_role",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reset_password_token": {
+          "name": "reset_password_token",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reset_password_expiration": {
+          "name": "reset_password_expiration",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "salt": {
+          "name": "salt",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hash": {
+          "name": "hash",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "login_attempts": {
+          "name": "login_attempts",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lock_until": {
+          "name": "lock_until",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "admins_created_at_idx": {
+          "name": "admins_created_at_idx",
+          "columns": [
+            "created_at"
+          ],
+          "isUnique": false
+        },
+        "admins_email_idx": {
+          "name": "admins_email_idx",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "admins_rels": {
+      "name": "admins_rels",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "path": {
+          "name": "path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "admins_rels_order_idx": {
+          "name": "admins_rels_order_idx",
+          "columns": [
+            "order"
+          ],
+          "isUnique": false
+        },
+        "admins_rels_parent_idx": {
+          "name": "admins_rels_parent_idx",
+          "columns": [
+            "parent_id"
+          ],
+          "isUnique": false
+        },
+        "admins_rels_path_idx": {
+          "name": "admins_rels_path_idx",
+          "columns": [
+            "path"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "admins_rels_parent_fk": {
+          "name": "admins_rels_parent_fk",
+          "tableFrom": "admins_rels",
+          "tableTo": "admins",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "admins_rels_media_fk": {
+          "name": "admins_rels_media_fk",
+          "tableFrom": "admins_rels",
           "tableTo": "media",
           "columnsFrom": [
             "media_id"
@@ -363,8 +508,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "users_id": {
-          "name": "users_id",
+        "admins_id": {
+          "name": "admins_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -432,12 +577,12 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "articles_rels_users_fk": {
-          "name": "articles_rels_users_fk",
+        "articles_rels_admins_fk": {
+          "name": "articles_rels_admins_fk",
           "tableFrom": "articles_rels",
-          "tableTo": "users",
+          "tableTo": "admins",
           "columnsFrom": [
-            "users_id"
+            "admins_id"
           ],
           "columnsTo": [
             "id"
@@ -679,8 +824,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "users_id": {
-          "name": "users_id",
+        "admins_id": {
+          "name": "admins_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -761,12 +906,12 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "_articles_v_rels_users_fk": {
-          "name": "_articles_v_rels_users_fk",
+        "_articles_v_rels_admins_fk": {
+          "name": "_articles_v_rels_admins_fk",
           "tableFrom": "_articles_v_rels",
-          "tableTo": "users",
+          "tableTo": "admins",
           "columnsFrom": [
-            "users_id"
+            "admins_id"
           ],
           "columnsTo": [
             "id"
@@ -1245,6 +1390,145 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "magic_links": {
+      "name": "magic_links",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "magic_links_created_at_idx": {
+          "name": "magic_links_created_at_idx",
+          "columns": [
+            "created_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "magic_links_rels": {
+      "name": "magic_links_rels",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "path": {
+          "name": "path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "users_id": {
+          "name": "users_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "magic_links_rels_order_idx": {
+          "name": "magic_links_rels_order_idx",
+          "columns": [
+            "order"
+          ],
+          "isUnique": false
+        },
+        "magic_links_rels_parent_idx": {
+          "name": "magic_links_rels_parent_idx",
+          "columns": [
+            "parent_id"
+          ],
+          "isUnique": false
+        },
+        "magic_links_rels_path_idx": {
+          "name": "magic_links_rels_path_idx",
+          "columns": [
+            "path"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "magic_links_rels_parent_fk": {
+          "name": "magic_links_rels_parent_fk",
+          "tableFrom": "magic_links_rels",
+          "tableTo": "magic_links",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "magic_links_rels_users_fk": {
+          "name": "magic_links_rels_users_fk",
+          "tableFrom": "magic_links_rels",
+          "tableTo": "users",
+          "columnsFrom": [
+            "users_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "payload_preferences": {
       "name": "payload_preferences",
       "schema": "",
@@ -1330,8 +1614,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "users_id": {
-          "name": "users_id",
+        "admins_id": {
+          "name": "admins_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -1374,12 +1658,12 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "payload_preferences_rels_users_fk": {
-          "name": "payload_preferences_rels_users_fk",
+        "payload_preferences_rels_admins_fk": {
+          "name": "payload_preferences_rels_admins_fk",
           "tableFrom": "payload_preferences_rels",
-          "tableTo": "users",
+          "tableTo": "admins",
           "columnsFrom": [
-            "users_id"
+            "admins_id"
           ],
           "columnsTo": [
             "id"
@@ -1446,15 +1730,14 @@
     "_locales": {
       "name": "_locales",
       "values": {
-        "en": "en"
+        "en-US": "en-US"
       }
     },
-    "enum_users_role": {
-      "name": "enum_users_role",
+    "enum_admins_role": {
+      "name": "enum_admins_role",
       "values": {
         "super_admin": "super_admin",
         "admin": "admin",
-        "user": "user",
         "editor": "editor"
       }
     },

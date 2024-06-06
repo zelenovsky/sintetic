@@ -7,6 +7,22 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/:lang/user',
+        missing: [
+          {
+            type: 'cookie',
+            key: 'authorized',
+            value: 'true',
+          },
+        ],
+        destination: '/:lang',
+        permanent: false,
+      },
+    ]
+  },
 }
 
 export default withPayload(nextConfig)

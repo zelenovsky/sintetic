@@ -1,46 +1,35 @@
-import { isAdminOrSuperAdmin } from '../access/fields'
 import type { CollectionConfig } from 'payload/types'
 
 export default {
   slug: 'users',
-  auth: true,
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'email',
+    hidden: ({ user }) => {
+      if (user.role === 'super_admin' || user.role === 'admin') {
+        return false
+      }
+      return true
+    },
   },
   fields: [
     {
+      name: 'email',
+      type: 'email',
+      required: true,
+      unique: true,
+    },
+    {
       name: 'phone',
-      type: 'text'
+      type: 'text',
     },
     {
       name: 'name',
-      type: 'text'
+      type: 'text',
     },
     {
       name: 'avatar',
       type: 'upload',
       relationTo: 'media',
-    },
-    {
-      name: 'role',
-      type: 'select',
-      access: {
-        read: () => true,
-        create: isAdminOrSuperAdmin,
-        update: isAdminOrSuperAdmin,
-      },
-      options: [
-        { label: 'Super Admin', value: 'super_admin' },
-        { label: 'Admin', value: 'admin' },
-        { label: 'User', value: 'user' },
-        { label: 'Editor', value: 'editor' },
-      ],
-      required: true,
-      defaultValue: 'user',
-    },
-    {
-      name: 'description',
-      type: 'text',
     },
   ],
 } satisfies CollectionConfig

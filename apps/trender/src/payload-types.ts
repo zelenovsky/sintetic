@@ -8,151 +8,177 @@
 
 export interface Config {
   collections: {
-    users: User;
-    articles: Article;
-    media: Media;
-    verticals: Vertical;
-    tags: Tag;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  globals: {};
-  locale: 'en-US';
-  user: User & {
-    collection: 'users';
-  };
+    users: User
+    admins: AdminUser
+    articles: Article
+    media: Media
+    verticals: Vertical
+    tags: Tag
+    'magic-links': MagicLink
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  globals: {}
+  locale: 'en-US'
+  user: AdminUser & {
+    collection: 'admins'
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
-  phone?: string | null;
-  name?: string | null;
-  avatar?: number | Media | null;
-  role: 'super_admin' | 'admin' | 'user' | 'editor';
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
+  id: number
+  email: string
+  phone?: string | null
+  name?: string | null
+  avatar?: number | Media | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
+  id: number
+  alt?: string | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admins".
+ */
+export interface AdminUser {
+  id: number
+  phone?: string | null
+  name?: string | null
+  avatar?: number | Media | null
+  role: 'super_admin' | 'admin' | 'editor'
+  description?: string | null
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
+  password?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles".
  */
 export interface Article {
-  id: number;
-  title: string;
-  subtitle?: string | null;
-  description?: string | null;
-  teaser_image?: number | Media | null;
+  id: number
+  title: string
+  subtitle?: string | null
+  description?: string | null
+  teaser_image?: number | Media | null
   content?: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  content_html?: string | null;
-  author: number | User;
-  vertical: number | Vertical;
-  tags?: (number | Tag)[] | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+        type: string
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  } | null
+  content_html?: string | null
+  author: number | AdminUser
+  vertical: number | Vertical
+  tags?: (number | Tag)[] | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "verticals".
  */
 export interface Vertical {
-  id: number;
-  title?: string | null;
-  slug?: string | null;
-  theme_dark_css?: string | null;
-  theme_light_css?: string | null;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  title?: string | null
+  slug?: string | null
+  theme_dark_css?: string | null
+  theme_light_css?: string | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tags".
  */
 export interface Tag {
-  id: number;
-  title?: string | null;
-  vertical?: (number | null) | Vertical;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  title?: string | null
+  vertical?: (number | null) | Vertical
+  updatedAt: string
+  createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "magic-links".
+ */
+export interface MagicLink {
+  id: number
+  user: number | User
+  token: string
+  expires_at: string
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: number
   user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  key?: string | null;
+    relationTo: 'admins'
+    value: number | AdminUser
+  }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

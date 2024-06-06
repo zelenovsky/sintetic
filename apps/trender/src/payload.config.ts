@@ -5,11 +5,13 @@ import { buildConfig } from 'payload/config'
 // import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import Admins from './collections/Admins'
 import Users from './collections/Users'
 import Articles from './collections/Articles'
 import Media from './collections/Media'
 import Verticals from './collections/Verticals'
 import Tags from './collections/Tags'
+import MagicLinks from './collections/MagicLinks'
 
 import { postEditor } from './editor/config'
 
@@ -22,7 +24,7 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
+    user: Admins.slug,
     components: {
       actions: [ProjectSwitcher],
     },
@@ -30,7 +32,7 @@ export default buildConfig({
       projectDomains: ['ru.sintetic.io', 'in.sintetic.io'],
     },
   },
-  collections: [Users, Articles, Media, Verticals, Tags],
+  collections: [Users, Admins, Articles, Media, Verticals, Tags, MagicLinks],
   editor: postEditor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

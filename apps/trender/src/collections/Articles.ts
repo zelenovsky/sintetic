@@ -25,7 +25,7 @@ export default {
       }
     },
     update: isAdminOrSuperAdminOrSelf,
-    delete: isAdminOrSuperAdminOrSelf
+    delete: isAdminOrSuperAdminOrSelf,
   },
   versions: {
     drafts: true,
@@ -66,7 +66,7 @@ export default {
               type: 'upload',
               relationTo: 'media',
             },
-          ]
+          ],
         },
         {
           label: 'Content',
@@ -76,15 +76,15 @@ export default {
               type: 'richText',
               localized: true,
             },
-            lexicalHTML('content', { name: 'content_html' })
-          ]
+            lexicalHTML('content', { name: 'content_html' }),
+          ],
         },
-      ]
+      ],
     },
     {
       name: 'author',
       type: 'relationship',
-      relationTo: 'users',
+      relationTo: 'admins',
       required: true,
       admin: {
         position: 'sidebar',
@@ -102,7 +102,7 @@ export default {
       required: true,
       admin: {
         position: 'sidebar',
-      }
+      },
     },
     {
       name: 'tags',
@@ -110,7 +110,11 @@ export default {
       relationTo: 'tags',
       hasMany: true,
       filterOptions: ({ siblingData }) => {
-        if (typeof siblingData === 'object' && siblingData !== null && 'vertical' in siblingData) {
+        if (
+          typeof siblingData === 'object' &&
+          siblingData !== null &&
+          'vertical' in siblingData
+        ) {
           return {
             vertical: { equals: siblingData.vertical },
           }
@@ -120,7 +124,7 @@ export default {
       },
       admin: {
         position: 'sidebar',
-      }
+      },
     },
     {
       name: 'preview',
@@ -128,9 +132,9 @@ export default {
       admin: {
         position: 'sidebar',
         components: {
-          Field: PreviewLink
-        }
-      }
-    }
+          Field: PreviewLink,
+        },
+      },
+    },
   ],
 } satisfies CollectionConfig
