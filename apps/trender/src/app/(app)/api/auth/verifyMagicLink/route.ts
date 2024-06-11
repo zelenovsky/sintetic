@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
   // @ts-ignore
   const { email } = jwt.verify(token, process.env.MAGIC_LINK_JWT_SECRET!)
 
-  const { totalDocs: total_user_docs } = await payload.find({
+  const { docs, totalDocs: total_user_docs } = await payload.find({
     collection: 'users',
     where: {
       email: {
@@ -48,6 +48,16 @@ export async function GET(req: NextRequest) {
   if (total_user_docs === 0) {
     return Response.json({ error: 'User with this email does not exsist' })
   }
+
+  const verified_user = docs[0]
+
+  payload.update({
+    collection: 'users',
+    id: verified_user.id,
+    data: {
+      verified: true,
+    },
+  })
 
   // Delete or invalidate the token
   payload.delete({
@@ -62,7 +72,7 @@ export async function GET(req: NextRequest) {
   const destinationUrl = new URL('/user', new URL(req.url).origin)
   const response = NextResponse.redirect(destinationUrl, { status: 302 })
 
-  response.cookies.set('authorized', 'true', {
+  response.cookies.set('authorized', verified_user.id.toString(), {
     path: '/',
     httpOnly: true,
     secure: true,

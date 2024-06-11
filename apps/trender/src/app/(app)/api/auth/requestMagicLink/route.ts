@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
       collection: 'users',
       data: {
         email: valid_email,
+        verified: false,
       },
     })
 

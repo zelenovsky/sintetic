@@ -1,0 +1,24 @@
+.wrapper {
+  display: block;
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  font-size: 11px;
+  color: #757575;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  appearance: none;
+  border: 1px solid black;
+  border-radius: 2px;
+  font-size: 13px;
+  padding: 22px 12px 6px 12px;
+  color: black;
+  height: 46px;
+}

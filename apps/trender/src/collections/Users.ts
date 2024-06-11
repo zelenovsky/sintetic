@@ -5,7 +5,7 @@ export default {
   admin: {
     useAsTitle: 'email',
     hidden: ({ user }) => {
-      if (user.role === 'super_admin' || user.role === 'admin') {
+      if (user?.role === 'super_admin' || user?.role === 'admin') {
         return false
       }
       return true
@@ -19,17 +19,27 @@ export default {
       unique: true,
     },
     {
-      name: 'phone',
+      name: 'username',
       type: 'text',
     },
     {
-      name: 'name',
+      name: 'first_name',
+      type: 'text',
+    },
+    {
+      name: 'last_name',
       type: 'text',
     },
     {
       name: 'avatar',
       type: 'upload',
       relationTo: 'media',
+    },
+    {
+      name: 'verified',
+      type: 'checkbox',
+      defaultValue: false,
+      required: true,
     },
   ],
 } satisfies CollectionConfig

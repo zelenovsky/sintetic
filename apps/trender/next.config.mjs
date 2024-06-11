@@ -15,7 +15,6 @@ const nextConfig = {
           {
             type: 'cookie',
             key: 'authorized',
-            value: 'true',
           },
         ],
         destination: '/:lang',

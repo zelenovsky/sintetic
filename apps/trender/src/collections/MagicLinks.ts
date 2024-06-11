@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload/types'
 export default {
   slug: 'magic-links',
   admin: {
-    // hidden: true,
+    hidden: true,
   },
   fields: [
     {
