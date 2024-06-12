@@ -18,6 +18,11 @@ export default async function RootLayout({
   const cookieStore = cookies()
   const authorized = cookieStore.get('authorized')
 
+  let needUserInitInfo = false
+  if (cookieStore.get('need_user_init_info')) {
+    needUserInitInfo = true
+  }
+
   const nav_links = [
     {
       href: '/',
@@ -40,6 +45,7 @@ export default async function RootLayout({
         </svg>
       `,
       needAuth: false,
+      needUserInitInfo: false,
     },
     {
       href: '/user',
@@ -60,6 +66,7 @@ export default async function RootLayout({
         </svg>
       `,
       needAuth: !authorized,
+      needUserInitInfo,
     },
   ]
 

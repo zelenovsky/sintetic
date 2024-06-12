@@ -1,13 +1,26 @@
+'use server'
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
-import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import type { NextRequest } from 'next/server'
+import { headers } from 'next/headers'
+import { z, type ZodError } from 'zod'
 
-export async function POST(req: NextRequest) {
-  const { email } = await req.json()
-  const valid_email = email.trim()
+const schema = z.object({
+  email: z.string().email({ message: 'Please enter a valid email address.' }),
+})
+
+export async function requestMagicLink(prevState: any, formData: FormData) {
+  const email = formData.get('email') as string
+
+  try {
+    schema.parse({ email })
+  } catch (err) {
+    console.error('Invalid email: ', (err as ZodError).message)
+    return {
+      message: 'Please enter a valid email',
+    }
+  }
 
   const payload = await getPayload({ config: configPromise })
 
@@ -18,7 +31,7 @@ export async function POST(req: NextRequest) {
     collection: 'users',
     where: {
       email: {
-        equals: valid_email,
+        equals: email,
       },
     },
   })
@@ -27,7 +40,7 @@ export async function POST(req: NextRequest) {
     const new_user = await payload.create({
       collection: 'users',
       data: {
-        email: valid_email,
+        email,
         verified: false,
       },
     })
@@ -41,18 +54,14 @@ export async function POST(req: NextRequest) {
     collection: 'magic-links',
     where: {
       'user.email': {
-        equals: valid_email,
+        equals: email,
       },
     },
   })
 
-  const token = jwt.sign(
-    { email: valid_email },
-    process.env.MAGIC_LINK_JWT_SECRET!,
-    {
-      expiresIn: '1h',
-    },
-  )
+  const token = jwt.sign({ email }, process.env.MAGIC_LINK_JWT_SECRET!, {
+    expiresIn: '1h',
+  })
 
   if (ml_total === 0) {
     ml_data = await payload.create({
@@ -95,5 +104,5 @@ export async function POST(req: NextRequest) {
     html: `<p><a href="${magicLink}">Click here to log in</a></p>`,
   })
 
-  return Response.json({ message: 'Magic link sent!' })
+  return { success: true }
 }

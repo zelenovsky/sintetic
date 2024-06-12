@@ -72,6 +72,7 @@ export async function GET(req: NextRequest) {
   const destinationUrl = new URL('/user', new URL(req.url).origin)
   const response = NextResponse.redirect(destinationUrl, { status: 302 })
 
+  response.cookies.set('need_user_init_info', 'true')
   response.cookies.set('authorized', verified_user.id.toString(), {
     path: '/',
     httpOnly: true,

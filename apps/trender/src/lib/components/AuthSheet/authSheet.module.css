@@ -1,0 +1,57 @@
+.root {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 1fr 462px;
+}
+
+.overlay {
+  backdrop-filter: blur(3px);
+}
+
+.content {
+  position: relative;
+  border-radius: 4px 4px 0 0;
+  background-color: #fff;
+  padding: 31px 48px;
+}
+
+.logo {
+  margin: 0 auto 13px;
+}
+
+.subtitle {
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  margin-block: 13px 27px;
+}
+
+.submit {
+  font-size: 14px;
+  height: 46px;
+  background-color: black;
+  border-radius: 2px;
+  display: grid;
+  place-items: center;
+  color: white;
+  width: 100%;
+  border: none;
+  margin-block: 15px;
+}
+
+.supportText {
+  font-size: 12px;
+  text-align: center;
+  margin-block: 19px 0;
+}
+
+.linkButton {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 2px 4px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}

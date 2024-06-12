@@ -1,6 +1,6 @@
 'use client'
 import s from './tapbar.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import AuthSheet from '@/lib/components/AuthSheet'
 
@@ -10,11 +10,23 @@ type Props = {
     text: string
     svg_icon: string
     needAuth: boolean
+    needUserInitInfo: boolean
   }[]
 }
 
 export default function Tapbar({ links }: Props) {
   const [authOpen, setAuthOpen] = useState(false)
+  const [authProceeded, setAuthProceeded] = useState(false)
+
+  useEffect(() => {
+    const neededInfo = links.find((link) => link.needUserInitInfo)
+    console.log('links', links)
+    console.log('neededInfo', neededInfo)
+    if (neededInfo) {
+      setAuthOpen(true)
+      setAuthProceeded(true)
+    }
+  }, [])
 
   return (
     <div className={s.container}>
@@ -42,7 +54,12 @@ export default function Tapbar({ links }: Props) {
           )}
         </div>
 
-        {authOpen && <AuthSheet onClose={() => setAuthOpen(false)} />}
+        {authOpen && (
+          <AuthSheet
+            onClose={() => setAuthOpen(false)}
+            authProceeded={authProceeded}
+          />
+        )}
       </nav>
     </div>
   )

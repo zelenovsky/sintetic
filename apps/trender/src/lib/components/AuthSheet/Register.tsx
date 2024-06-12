@@ -1,41 +1,21 @@
 'use client'
-import s from './styles.module.css'
-import { useState, type FormEvent } from 'react'
-import { useForm } from 'react-hook-form'
-import { Email } from '@/lib/components/forms/inputs'
-import { Submit } from '@/lib/components/forms/inputs'
+import s from './authSheet.module.css'
+import type { ViewProps } from '.'
+import { useEffect } from 'react'
+import { useFormState } from 'react-dom'
+import { InputTemplate, Submit } from '@/lib/components/forms/inputs'
+import { requestMagicLink } from './actions'
 
-export default function Register() {
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const { register } = useForm()
+export default function Register({ setView }: ViewProps) {
+  const [state, formAction] = useFormState(requestMagicLink, {
+    message: '',
+  })
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault()
-    setIsLoading(true)
-    setMessage('')
-
-    try {
-      const response = await fetch('/api/auth/requestMagicLink', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setMessage('Magic link sent! Check your email to log in.')
-      } else {
-        setMessage(data.error || 'An error occurred. Please try again.')
-      }
-    } catch (error) {
-      setMessage('An error occurred. Please try again.')
-    } finally {
-      setIsLoading(false)
+  useEffect(() => {
+    if (state?.success) {
+      setView('register:check')
     }
-  }
+  }, [state])
 
   return (
     <>
@@ -54,16 +34,14 @@ export default function Register() {
         />
       </svg>
 
-      <p>Join Trender today</p>
+      <p className={s.subtitle}>Join Trender today</p>
 
-      <form className={s.form} onSubmit={handleSubmit}>
-        <Email register={register} />
+      <form action={formAction}>
+        <InputTemplate label="Email" type="email" name="email" required />
 
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? '...' : 'Register'}
-        </button>
+        {state?.message && <p>{state.message}</p>}
 
-        {message && <p>{message}</p>}
+        <Submit className={s.submit}>Register</Submit>
       </form>
     </>
   )

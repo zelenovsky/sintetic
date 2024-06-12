@@ -1,5 +1,5 @@
 'use client'
-import s from './styles.module.css'
+import s from './authSheet.module.css'
 import type { ViewProps } from '.'
 
 export default function Login({ setView }: ViewProps) {
@@ -20,15 +20,20 @@ export default function Login({ setView }: ViewProps) {
         />
       </svg>
 
-      <p>Welcome back to Trender!</p>
+      <p className={s.subtitle}>Welcome back to Trender!</p>
 
-      <button onClick={() => setView('login:welcome')}>
+      <button className={s.submit} onClick={() => setView('login:welcome')}>
         Sign in with email
       </button>
 
-      <p>
+      <p className={s.supportText}>
         Don’t have an account?{' '}
-        <button onClick={() => setView('register:start')}>Sign Up</button>
+        <button
+          className={s.linkButton}
+          onClick={() => setView('register:start')}
+        >
+          Sign Up
+        </button>
       </p>
     </>
   )

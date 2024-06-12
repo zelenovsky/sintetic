@@ -2,7 +2,7 @@
 import s from './authSheet.module.css'
 import type { ViewProps } from '.'
 
-export default function Start({ setView }: ViewProps) {
+export default function RegisterSetup({ setView }: ViewProps) {
   return (
     <>
       <svg
@@ -20,18 +20,11 @@ export default function Start({ setView }: ViewProps) {
         />
       </svg>
 
-      <p className={s.subtitle}>Join Trender today</p>
+      <p className={s.subtitle}>Let’s set up your profile</p>
 
-      <button className={s.submit} onClick={() => setView('register:start')}>
-        Sign up with email
+      <button className={s.submit} onClick={() => setView('register:setup')}>
+        Proceed
       </button>
-
-      <p className={s.supportText}>
-        Already have an account?{' '}
-        <button className={s.linkButton} onClick={() => setView('login:start')}>
-          Login
-        </button>
-      </p>
     </>
   )
 }

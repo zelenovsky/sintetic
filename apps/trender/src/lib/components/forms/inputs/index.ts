@@ -1,3 +1,3 @@
-import Email from './Email'
+import InputTemplate from './InputTemplate'
 import Submit from './Submit'
-export { Email, Submit }
+export { InputTemplate, Submit }

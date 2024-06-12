@@ -1,14 +1,16 @@
-import s from './styles.module.css'
+import { useFormStatus } from 'react-dom'
 
 type Props = {
-  text: string
-  disabled?: boolean
+  children: string
+  [key: string]: any
 }
 
-export default function Submit({ text, disabled }: Props) {
+export default function Submit({ children, ...attrs }: Props) {
+  const { pending } = useFormStatus()
+
   return (
-    <button className={s.button} type="submit" disabled={disabled}>
-      {text}
+    <button {...attrs} type="submit" disabled={pending}>
+      {pending ? '...' : children}
     </button>
   )
 }
