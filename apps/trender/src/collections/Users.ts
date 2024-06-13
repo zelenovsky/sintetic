@@ -23,10 +23,12 @@ export default {
       type: 'text',
     },
     {
+      label: 'First name',
       name: 'first_name',
       type: 'text',
     },
     {
+      label: 'Last name',
       name: 'last_name',
       type: 'text',
     },

@@ -1,19 +1,19 @@
 'use client'
 import s from './authSheet.module.css'
 import type { ViewProps } from '.'
-import { InputTemplate, Submit } from '@/lib/components/forms/inputs'
 import { useEffect } from 'react'
 import { useFormState } from 'react-dom'
-import { updateUserInfo } from './actions'
+import { InputTemplate, Submit } from '@/lib/components/forms/inputs'
+import { signIn } from './actions'
 
-export default function RegisterSetup({ setView }: ViewProps) {
-  const [state, formAction] = useFormState(updateUserInfo, {
+export default function ({ setView }: ViewProps) {
+  const [state, formAction] = useFormState(signIn, {
     message: '',
   })
 
   useEffect(() => {
     if (state?.success) {
-      setView('register:upload')
+      setView('login:finish')
     }
   }, [state])
 
@@ -34,16 +34,14 @@ export default function RegisterSetup({ setView }: ViewProps) {
         />
       </svg>
 
-      <p className={s.subtitle}>Let’s set up your profile</p>
+      <p className={s.subtitle}>Welcome back to Trender!</p>
 
       <form action={formAction}>
-        <div className={s.fieldsGroup}>
-          <InputTemplate label="First name" type="text" name="firstname" />
-          <InputTemplate label="Last name" type="text" name="lastname" />
-          <InputTemplate label="Username" type="text" name="username" />
-        </div>
+        <InputTemplate label="Email" type="email" name="email" required />
 
-        <Submit className={s.submit}>Proceed</Submit>
+        {state?.message && <p>{state.message}</p>}
+
+        <Submit className={s.submit}>Sign in</Submit>
       </form>
     </>
   )

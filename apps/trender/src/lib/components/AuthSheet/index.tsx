@@ -4,9 +4,12 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 import Start from './Start'
 import Register from './Register'
 import RegisterWelcome from './RegisterWelcome'
-import Login from './Login'
+import LoginStart from './LoginStart'
+import LoginFind from './LoginFind'
+import LoginFinish from './LoginFinish'
 import RegisterCheck from './RegisterCheck'
 import RegisterSetup from './RegisterSetup'
+import RegisterUpload from './RegisterUpload'
 
 type Props = {
   onClose: () => void
@@ -16,7 +19,7 @@ type Props = {
 export type Views =
   | 'start'
   | 'login:start'
-  | 'login:welcome'
+  | 'login:find'
   | 'login:finish'
   | 'register:start'
   | 'register:check'
@@ -34,7 +37,10 @@ const views: { [key in Views]: (p: ViewProps) => JSX.Element } = {
   'register:check': RegisterCheck,
   'register:welcome': RegisterWelcome,
   'register:setup': RegisterSetup,
-  'login:start': Login,
+  'register:upload': RegisterUpload,
+  'login:start': LoginStart,
+  'login:find': LoginFind,
+  'login:finish': LoginFinish,
 }
 
 export default function AuthSheet({ onClose, authProceeded }: Props) {

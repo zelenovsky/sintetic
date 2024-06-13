@@ -1,4 +1,3 @@
-import { isAdminOrSuperAdmin } from '../access/fields'
 import type { CollectionConfig } from 'payload/types'
 
 export default {
@@ -7,8 +6,7 @@ export default {
     useAsTitle: 'alt',
   },
   access: {
-    read: () => true,
-    delete: isAdminOrSuperAdmin
+    create: () => true,
   },
   fields: [
     {

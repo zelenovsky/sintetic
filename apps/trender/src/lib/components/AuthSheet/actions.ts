@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { headers } from 'next/headers'
+import { headers, cookies } from 'next/headers'
 import { z, type ZodError } from 'zod'
 
 const schema = z.object({
@@ -103,6 +103,93 @@ export async function requestMagicLink(prevState: any, formData: FormData) {
     subject: 'Your Magic Link',
     html: `<p><a href="${magicLink}">Click here to log in</a></p>`,
   })
+
+  return { success: true }
+}
+
+export async function updateUserInfo(prevState: any, formData: FormData) {
+  const cookieStore = cookies()
+  const user_id = cookieStore.get('authorized')
+
+  if (!user_id) {
+    return {
+      message: 'User does not exist',
+    }
+  }
+
+  const payload = await getPayload({ config: configPromise })
+  await payload.update({
+    collection: 'users',
+    id: user_id.value,
+    data: {
+      username: formData.get('username')?.toString(),
+      first_name: formData.get('firstname')?.toString(),
+      last_name: formData.get('lastname')?.toString(),
+    },
+  })
+
+  cookieStore.delete('need_user_init_info')
+
+  return { success: true }
+}
+
+export async function updateUserAvatar(avatarFileId: number) {
+  const cookieStore = cookies()
+  const user_id = cookieStore.get('authorized')
+
+  if (!user_id) {
+    return {
+      message: 'User does not exist',
+    }
+  }
+
+  const payload = await getPayload({ config: configPromise })
+  await payload.update({
+    collection: 'users',
+    id: user_id.value,
+    data: {
+      avatar: avatarFileId,
+    },
+  })
+
+  return { success: true }
+}
+
+export async function signIn(prevState: any, formData: FormData) {
+  const email = formData.get('email') as string
+
+  try {
+    schema.parse({ email })
+  } catch (err) {
+    console.error('Invalid email: ', (err as ZodError).message)
+    return {
+      message: 'Please enter a valid email',
+    }
+  }
+
+  const payload = await getPayload({ config: configPromise })
+  const { docs, totalDocs } = await payload.find({
+    collection: 'users',
+    where: {
+      email: {
+        equals: email,
+      },
+      verified: {
+        equals: true,
+      },
+    },
+  })
+
+  if (totalDocs === 0) {
+    return {
+      message: 'User with this email is not found or is not verified yet',
+    }
+  }
+
+  const user = docs[0]
+
+  const cookieStore = cookies()
+  cookieStore.set('authorized', String(user.id))
 
   return { success: true }
 }

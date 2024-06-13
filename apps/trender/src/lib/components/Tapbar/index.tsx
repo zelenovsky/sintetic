@@ -20,8 +20,6 @@ export default function Tapbar({ links }: Props) {
 
   useEffect(() => {
     const neededInfo = links.find((link) => link.needUserInitInfo)
-    console.log('links', links)
-    console.log('neededInfo', neededInfo)
     if (neededInfo) {
       setAuthOpen(true)
       setAuthProceeded(true)

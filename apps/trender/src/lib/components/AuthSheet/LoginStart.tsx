@@ -22,7 +22,7 @@ export default function Login({ setView }: ViewProps) {
 
       <p className={s.subtitle}>Welcome back to Trender!</p>
 
-      <button className={s.submit} onClick={() => setView('login:welcome')}>
+      <button className={s.submit} onClick={() => setView('login:find')}>
         Sign in with email
       </button>
 
