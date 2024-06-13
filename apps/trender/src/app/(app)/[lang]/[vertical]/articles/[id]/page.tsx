@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import Author from '@/lib/components/Author'
 import configPromise from '@payload-config'
 import TechLogo from '@/lib/svg-icons/TechLogo'
-import type { Article, User, Media } from '@payload-types'
+import type { Article, Admin, Media } from '@payload-types'
 
 type Params = {
   id: string
@@ -68,7 +68,7 @@ export default async function ArticlePage({ params, searchParams }: Props) {
     },
   })
 
-  const author = doc.author as User
+  const author = doc.author as Admin
 
   return (
     <article className="s-post">
