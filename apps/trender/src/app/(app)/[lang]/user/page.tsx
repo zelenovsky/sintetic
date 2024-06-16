@@ -1,5 +1,6 @@
 import s from './userProfile.module.css'
 import { cookies } from 'next/headers'
+import Link from 'next/link'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { User, Media } from '@payload-types'
@@ -31,6 +32,10 @@ export default async function UserProfilePage() {
 
   return (
     <div className={`${s.layout} container`}>
+      <header>
+        <Link href="/user/settings">Settings</Link>
+      </header>
+
       <section className={s.header}>
         {user.avatar ? (
           <img

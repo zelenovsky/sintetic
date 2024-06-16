@@ -34,6 +34,7 @@ export interface User {
   username?: string | null;
   first_name?: string | null;
   last_name?: string | null;
+  location?: string | null;
   avatar?: number | Media | null;
   verified: boolean;
   updatedAt: string;

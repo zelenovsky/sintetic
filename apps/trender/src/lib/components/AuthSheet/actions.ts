@@ -4,19 +4,12 @@ import nodemailer from 'nodemailer'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { headers, cookies } from 'next/headers'
-import { z, type ZodError } from 'zod'
-
-const schema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address.' }),
-})
+import { validateFormEmail } from '@/lib/helpers/validations'
 
 export async function requestMagicLink(prevState: any, formData: FormData) {
-  const email = formData.get('email') as string
+  const { valid, email } = validateFormEmail(formData)
 
-  try {
-    schema.parse({ email })
-  } catch (err) {
-    console.error('Invalid email: ', (err as ZodError).message)
+  if (!valid) {
     return {
       message: 'Please enter a valid email',
     }
@@ -156,12 +149,9 @@ export async function updateUserAvatar(avatarFileId: number) {
 }
 
 export async function signIn(prevState: any, formData: FormData) {
-  const email = formData.get('email') as string
+  const { valid, email } = validateFormEmail(formData)
 
-  try {
-    schema.parse({ email })
-  } catch (err) {
-    console.error('Invalid email: ', (err as ZodError).message)
+  if (!valid) {
     return {
       message: 'Please enter a valid email',
     }

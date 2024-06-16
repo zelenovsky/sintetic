@@ -33,6 +33,11 @@ export default {
       type: 'text',
     },
     {
+      label: 'Location',
+      name: 'location',
+      type: 'text',
+    },
+    {
       name: 'avatar',
       type: 'upload',
       relationTo: 'media',

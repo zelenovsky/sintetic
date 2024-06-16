@@ -1,0 +1,31 @@
+ul.tabs {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+li.active {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    border-radius: 2px;
+    background-color: black;
+    content: '';
+  }
+}
+
+.button {
+  padding: 6px 9px;
+  background-color: transparent;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+}
