@@ -7,6 +7,16 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'sintetic-assets.sfo3.digitaloceanspaces.com',
+        port: '',
+        pathname: '/images/**',
+      },
+    ],
+  },
   async redirects() {
     return [
       {

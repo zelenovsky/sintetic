@@ -1,13 +1,23 @@
 'use client'
 import s from './authSheet.module.css'
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useEffect, useState, type ChangeEvent } from 'react'
+import Image from 'next/image'
+import { useFormState } from 'react-dom'
+import { Submit } from '@/lib/components/forms/inputs'
 import { updateUserAvatar } from './actions'
 
 export default function () {
-  const url = new URL(window.location.href)
+  const [state, formAction] = useFormState(updateUserAvatar, {
+    message: '',
+  })
   const [imageUrl, setImageUrl] = useState('')
-  const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (state.success) {
+      const url = new URL(window.location.href)
+      window.location.href = `${url.origin}/user`
+    }
+  }, [state])
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -20,28 +30,6 @@ export default function () {
 
     previewReader.onloadend = () => {
       setImageUrl(previewReader.result as string)
-    }
-  }
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    try {
-      const res = await fetch(`${url.origin}/api/media`, {
-        method: 'post',
-        body: new FormData(e.target as HTMLFormElement),
-      })
-
-      const { doc } = await res.json()
-
-      await updateUserAvatar(doc.id)
-
-      window.location.href = `${url.origin}/user`
-    } catch (err) {
-      setMessage('Error while avatar uploading')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -62,11 +50,17 @@ export default function () {
         />
       </svg>
 
-      <p className={s.subtitle}>Upload your profile picture.</p>
+      <p className={s.infoText}>Upload your profile picture.</p>
 
-      <form method="post" onSubmit={handleSubmit}>
+      <form action={formAction}>
         {imageUrl ? (
-          <img src={imageUrl} className={s.avatar} alt="New uploaded avatar" />
+          <Image
+            src={imageUrl}
+            className={s.avatar}
+            width="62"
+            height="62"
+            alt="New uploaded avatar"
+          />
         ) : (
           <svg width="62" height="62" viewBox="0 0 62 62" fill="none">
             <g clipPath="url(#clip0_444_374)">
@@ -90,18 +84,16 @@ export default function () {
         <label className={s.uploadPhoto}>
           <input
             type="file"
-            name="file"
+            name="avatar"
             onChange={handleFileChange}
             accept="image/*"
           />
           <span>Upload photo</span>
         </label>
 
-        <button className={s.submit} type="submit" disabled={loading}>
-          {loading ? '...' : 'Proceed'}
-        </button>
+        <Submit className={s.submit}>Proceed</Submit>
 
-        {message && <p>{message}</p>}
+        {state.message && <p>{state.message}</p>}
       </form>
     </>
   )

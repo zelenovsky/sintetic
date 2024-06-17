@@ -6,13 +6,14 @@ import { useFormState } from 'react-dom'
 import { InputTemplate, Submit } from '@/lib/components/forms/inputs'
 import { signIn } from './actions'
 
-export default function ({ setView }: ViewProps) {
+export default function ({ setView, setUser }: ViewProps) {
   const [state, formAction] = useFormState(signIn, {
     message: '',
   })
 
   useEffect(() => {
     if (state?.success) {
+      setUser(state.user)
       setView('login:finish')
     }
   }, [state])
@@ -43,6 +44,14 @@ export default function ({ setView }: ViewProps) {
 
         <Submit className={s.submit}>Sign in</Submit>
       </form>
+
+      <button
+        type="button"
+        onClick={() => setView('login:start')}
+        className={`${s.linkButton} ${s.linkButtonBack}`}
+      >
+        ← Back
+      </button>
     </>
   )
 }

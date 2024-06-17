@@ -1,34 +1,25 @@
 'use client'
 import s from './authSheet.module.css'
-import { useEffect, useState } from 'react'
-import { useCookies } from 'next-client-cookies'
+import Image from 'next/image'
+import type { ViewProps } from '.'
+import type { Media } from '@payload-types'
 
-export default function () {
-  const url = new URL(window.location.href)
-  const [imageUrl, setImageUrl] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const cookies = useCookies()
-
-  useEffect(() => {
-    const userId = cookies.get('authorized')
-    if (!userId) return
-
-    fetch(`${url.origin}/api/users/${userId}`)
-      .then((res) => res.json())
-      .then(({ first_name, avatar }) => {
-        setFirstName(first_name)
-        setImageUrl(avatar.url)
-      })
-  }, [])
-
+export default function ({ user }: ViewProps) {
   const handleDone = () => {
+    const url = new URL(window.location.href)
     window.location.href = `${url.origin}/user`
   }
 
   return (
     <>
-      {imageUrl ? (
-        <img src={imageUrl} className={s.avatar} alt="New uploaded avatar" />
+      {user?.avatar ? (
+        <Image
+          src={(user?.avatar as Media).url!}
+          className={`${s.avatar} ${s.avatarFinish}`}
+          width="78"
+          height="78"
+          alt="Avatar"
+        />
       ) : (
         <svg width="62" height="62" viewBox="0 0 62 62" fill="none">
           <g clipPath="url(#clip0_444_374)">
@@ -49,7 +40,7 @@ export default function () {
         </svg>
       )}
 
-      {firstName && <p className={s.subtitle}>Welcome back, {firstName}!</p>}
+      <p className={s.subtitle}>Welcome back, {user?.first_name}!</p>
 
       <button className={s.submit} type="button" onClick={handleDone}>
         Done

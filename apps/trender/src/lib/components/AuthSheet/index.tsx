@@ -10,6 +10,7 @@ import LoginFinish from './LoginFinish'
 import RegisterCheck from './RegisterCheck'
 import RegisterSetup from './RegisterSetup'
 import RegisterUpload from './RegisterUpload'
+import type { User } from '@payload-types'
 
 type Props = {
   onClose: () => void
@@ -29,6 +30,8 @@ export type Views =
 
 export type ViewProps = {
   setView: Dispatch<SetStateAction<Views>>
+  setUser: Dispatch<SetStateAction<User | null>>
+  user: User | null
 }
 
 const views: { [key in Views]: (p: ViewProps) => JSX.Element } = {
@@ -45,6 +48,8 @@ const views: { [key in Views]: (p: ViewProps) => JSX.Element } = {
 
 export default function AuthSheet({ onClose, authProceeded }: Props) {
   const [view, setView] = useState<Views>('start')
+  const [user, setUser] = useState<User | null>(null)
+
   const View = views[view]
 
   useEffect(() => {
@@ -58,7 +63,7 @@ export default function AuthSheet({ onClose, authProceeded }: Props) {
       <div className={s.overlay} onClick={onClose} />
 
       <div className={s.content}>
-        <View setView={setView} />
+        <View setView={setView} user={user} setUser={setUser} />
       </div>
     </div>
   )

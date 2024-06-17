@@ -1,11 +1,14 @@
-.layout {
-  padding-top: 52px;
-}
-
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.headerLink {
+  font-size: 12px;
+  text-decoration: none;
 }
 
 .avatar {
@@ -49,7 +52,8 @@
   display: grid;
   place-items: center;
   color: white;
-  width: 100%;
+  width: 100px;
+  margin-inline-start: auto;
   border: none;
 }
 

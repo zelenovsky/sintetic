@@ -126,7 +126,7 @@ export async function updateUserInfo(prevState: any, formData: FormData) {
   return { success: true }
 }
 
-export async function updateUserAvatar(avatarFileId: number) {
+export async function updateUserAvatar(prevState: any, formData: FormData) {
   const cookieStore = cookies()
   const user_id = cookieStore.get('authorized')
 
@@ -137,13 +137,35 @@ export async function updateUserAvatar(avatarFileId: number) {
   }
 
   const payload = await getPayload({ config: configPromise })
-  await payload.update({
-    collection: 'users',
-    id: user_id.value,
-    data: {
-      avatar: avatarFileId,
-    },
-  })
+
+  const avatar = formData.get('avatar') as File
+
+  const isAvatarChanged = !!avatar.size
+
+  if (isAvatarChanged) {
+    const buf = await avatar.arrayBuffer()
+
+    const { id: avatarId } = await payload.create({
+      collection: 'media',
+      data: {
+        alt: avatar.name,
+      },
+      file: {
+        data: Buffer.from(buf),
+        name: avatar.name,
+        size: avatar.size,
+        mimetype: avatar.type,
+      },
+    })
+
+    await payload.update({
+      collection: 'users',
+      id: user_id.value,
+      data: {
+        avatar: avatarId,
+      },
+    })
+  }
 
   return { success: true }
 }
@@ -181,5 +203,5 @@ export async function signIn(prevState: any, formData: FormData) {
   const cookieStore = cookies()
   cookieStore.set('authorized', String(user.id))
 
-  return { success: true }
+  return { user, success: true }
 }

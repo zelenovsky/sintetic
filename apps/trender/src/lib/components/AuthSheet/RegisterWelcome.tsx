@@ -20,7 +20,7 @@ export default function RegisterWelcome({ setView }: ViewProps) {
         />
       </svg>
 
-      <p className={s.subtitle}>
+      <p className={s.infoText}>
         Welcome to Trender! Your email is confirmed. Let’s proceed!
       </p>
 

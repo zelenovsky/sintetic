@@ -34,7 +34,7 @@ export default function RegisterSetup({ setView }: ViewProps) {
         />
       </svg>
 
-      <p className={s.subtitle}>Let’s set up your profile</p>
+      <p className={s.infoText}>Let’s set up your profile</p>
 
       <form action={formAction}>
         <div className={s.fieldsGroup}>

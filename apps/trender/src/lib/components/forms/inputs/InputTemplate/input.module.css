@@ -8,7 +8,7 @@
   top: 9px;
   left: 12px;
   font-size: 11px;
-  color: #757575;
+  color: var(--text-inactive-0);
 }
 
 .input {

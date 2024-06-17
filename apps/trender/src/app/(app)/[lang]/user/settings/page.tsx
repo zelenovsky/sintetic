@@ -2,12 +2,9 @@ import s from './userProfileSettings.module.css'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { getPayload } from 'payload'
-// import { createContext, useContext } from 'react'
 import configPromise from '@payload-config'
 import type { User } from '@payload-types'
 import TabViews from './TabViews'
-
-// const userContext = createContext({ user: null })
 
 export default async function UserProfileSettingsPage() {
   const cookieStore = cookies()
@@ -35,14 +32,17 @@ export default async function UserProfileSettingsPage() {
   const user = docs[0] as User
 
   return (
-    <div className={`${s.layout} container`}>
-      <header className={s.header}>
-        <Link href="/user">Back</Link>
+    <>
+      <header className={`${s.header} container`}>
+        <Link href="/user" className={s.headerLink}>
+          Back
+        </Link>
       </header>
 
-      <h1 className={s.title}>Settings</h1>
-
-      <TabViews user={user} />
-    </div>
+      <div className="container">
+        <h1 className={s.title}>Settings</h1>
+        <TabViews user={user} />
+      </div>
+    </>
   )
 }

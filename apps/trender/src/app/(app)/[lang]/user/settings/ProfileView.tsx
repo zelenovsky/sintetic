@@ -2,9 +2,10 @@
 import s from './userProfileSettings.module.css'
 import type { Media, User } from '@payload-types'
 import { InputTemplate, Submit } from '@/lib/components/forms/inputs'
-import { updateUserProfile, updateUserAvatar } from './actions'
+import { updateUserProfile } from './actions'
 import { useFormState } from 'react-dom'
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import Image from 'next/image'
+import { useState, type ChangeEvent } from 'react'
 
 type Props = {
   user: User
@@ -16,10 +17,7 @@ export default function ProfileView({ user }: Props) {
     email: '',
     success: false,
   })
-
   const [imageUrl, setImageUrl] = useState('')
-  const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(false)
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -35,51 +33,25 @@ export default function ProfileView({ user }: Props) {
     }
   }
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-
-    // if (!imageUrl) return
-
-    setLoading(true)
-
-    const url = new URL(window.location.href)
-
-    try {
-      if (user.avatar) {
-        // update avatar
-        // const res = await fetch(`${url.origin}/api/media/${user.avatar?.id}`, {
-        //   method: 'patch',
-        //   body: new FormData(e.target as HTMLFormElement),
-        // })
-      } else {
-        // create new avatar
-        const res = await fetch(`${url.origin}/api/media`, {
-          method: 'post',
-          body: new FormData(e.target as HTMLFormElement),
-        })
-
-        const { doc } = await res.json()
-
-        await updateUserAvatar(doc.id)
-      }
-    } catch (err) {
-      setMessage('Error while avatar uploading')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   return (
     <section className={s.view}>
       <form action={formAction} className={s.form}>
         <div className={s.uploadContainer}>
           {imageUrl ? (
-            <img src={imageUrl} alt="Avatar" className={s.avatar} />
-          ) : user.avatar ? (
-            <img
-              src={(user.avatar as Media).url!}
-              alt="Avatar"
+            <Image
+              src={imageUrl}
               className={s.avatar}
+              width="62"
+              height="62"
+              alt="Avatar"
+            />
+          ) : user.avatar ? (
+            <Image
+              src={(user.avatar as Media).url!}
+              className={s.avatar}
+              width="62"
+              height="62"
+              alt="Avatar"
             />
           ) : (
             <div className={s.placeholder}>
@@ -106,7 +78,7 @@ export default function ProfileView({ user }: Props) {
           <label className={s.uploadPhoto}>
             <input
               type="file"
-              name="file"
+              name="avatar"
               onChange={handleFileChange}
               accept="image/*"
             />

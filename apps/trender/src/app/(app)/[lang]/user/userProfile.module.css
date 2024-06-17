@@ -1,8 +1,17 @@
-.layout {
-  padding-top: 52px;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 50px;
 }
 
-.header {
+.headerLink {
+  font-size: 12px;
+  text-decoration: none;
+  color: var(--text-inactive-0);
+}
+
+.userShortInfo {
   display: flex;
   align-items: center;
   gap: 17px;

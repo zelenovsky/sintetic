@@ -19,7 +19,7 @@ export default function () {
         />
       </svg>
 
-      <p className={s.subtitle}>
+      <p className={s.infoText}>
         Check your email and click the link to confirm your email address.
       </p>
     </>
