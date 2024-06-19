@@ -9,9 +9,10 @@ import { useState, type ChangeEvent } from 'react'
 
 type Props = {
   user: User
+  d: any
 }
 
-export default function ProfileView({ user }: Props) {
+export default function ProfileView({ user, d }: Props) {
   const [state, formAction] = useFormState(updateUserProfile, {
     common: '',
     email: '',
@@ -82,14 +83,14 @@ export default function ProfileView({ user }: Props) {
               onChange={handleFileChange}
               accept="image/*"
             />
-            <span>Upload photo</span>
+            <span>{d.forms.upload.avatar.input_text}</span>
           </label>
         </div>
 
         {state.common && <p>{state.common}</p>}
 
         <InputTemplate
-          label="Email"
+          label={d.forms.email.label_text}
           name="email"
           type="email"
           defaultValue={user.email}
@@ -98,34 +99,34 @@ export default function ProfileView({ user }: Props) {
         {state.email && <p>{state.email}</p>}
 
         <InputTemplate
-          label="First name"
+          label={d.forms.first_name.label_text}
           type="text"
           name="firstname"
           defaultValue={user.first_name}
         />
 
         <InputTemplate
-          label="Last name"
+          label={d.forms.last_name.label_text}
           type="text"
           name="lastname"
           defaultValue={user.last_name}
         />
 
         <InputTemplate
-          label="Username"
+          label={d.forms.username.label_text}
           type="text"
           name="username"
           defaultValue={user.username}
         />
 
         <InputTemplate
-          label="Location"
+          label={d.forms.location.label_text}
           type="text"
           name="location"
           defaultValue={user.location}
         />
 
-        <Submit className={s.submit}>Save</Submit>
+        <Submit className={s.submit}>{d.forms.submit.save_text}</Submit>
       </form>
     </section>
   )

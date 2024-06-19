@@ -1,10 +1,44 @@
 {
   "tapbar": {
     "home": {
-      "link_text": "Home"
+      "link_text": "घर"
     },
     "user": {
-      "link_text": "User"
+      "link_text": "उपयोगकर्ता"
     }
+  },
+  "forms": {
+    "upload": {
+      "avatar": {
+        "input_text": "फोटो अपलोड करें"
+      }
+    },
+    "submit": {
+      "save_text": "सहेजें"
+    },
+    "email": {
+      "label_text": "ईमेल"
+    },
+    "first_name": {
+      "label_text": "पहला नाम"
+    },
+    "last_name": {
+      "label_text": "अंतिम नाम"
+    },
+    "username": {
+      "label_text": "उपयोगकर्ता नाम"
+    },
+    "location": {
+      "label_text": "स्थान"
+    }
+  },
+  "navigation": {
+    "back_text": "वापस"
+  },
+  "user": {
+    "settings_text": "सेटिंग्स",
+    "profile_text": "प्रोफ़ाइल",
+    "interests_text": "रुचियां",
+    "security_text": "सुरक्षा"
   }
 }

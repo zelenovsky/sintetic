@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 import { cookies } from 'next/headers'
 import Tapbar from '@/lib/components/Tapbar'
-import { dir, getDictionary, type SupportedLocales } from '../dictionaries'
+import { dir, getDictionary } from '../dictionaries'
 
 export default async function RootLayout({
   children,
@@ -14,7 +14,7 @@ export default async function RootLayout({
     lang: string
   }
 }>) {
-  const t = await getDictionary(params.lang as SupportedLocales)
+  const t = await getDictionary(params.lang)
   const cookieStore = cookies()
   const authorized = cookieStore.get('authorized')
 

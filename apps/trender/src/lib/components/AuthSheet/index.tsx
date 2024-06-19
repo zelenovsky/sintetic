@@ -58,9 +58,16 @@ export default function AuthSheet({ onClose, authProceeded }: Props) {
     }
   }, [])
 
+  const handleClose = () => {
+    const yes = confirm('Do you really want to close this window?')
+    if (yes) {
+      onClose()
+    }
+  }
+
   return (
     <div className={`${s.root} container`}>
-      <div className={s.overlay} onClick={onClose} />
+      <div onClick={handleClose} />
 
       <div className={s.content}>
         <View setView={setView} user={user} setUser={setUser} />

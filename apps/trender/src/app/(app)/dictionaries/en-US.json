@@ -6,5 +6,39 @@
     "user": {
       "link_text": "User"
     }
+  },
+  "forms": {
+    "upload": {
+      "avatar": {
+        "input_text": "Upload photo"
+      }
+    },
+    "submit": {
+      "save_text": "Save"
+    },
+    "email": {
+      "label_text": "Email"
+    },
+    "first_name": {
+      "label_text": "First name"
+    },
+    "last_name": {
+      "label_text": "Last name"
+    },
+    "username": {
+      "label_text": "Username"
+    },
+    "location": {
+      "label_text": "Location"
+    }
+  },
+  "navigation": {
+    "back_text": "Back"
+  },
+  "user": {
+    "settings_text": "Settings",
+    "profile_text": "Profile",
+    "interests_text": "Interests",
+    "security_text": "Security"
   }
 }

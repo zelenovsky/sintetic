@@ -1,4 +1,6 @@
+'use client'
 import s from './input.module.css'
+import { useState, createRef } from 'react'
 
 type Props = {
   label: string
@@ -6,10 +8,28 @@ type Props = {
 }
 
 export default function InputTemplate({ label, ...attrs }: Props) {
+  const [labelFloating, setLabelFloating] = useState(false)
+  const inputRef = createRef<HTMLInputElement>()
+
+  const handleFocus = () => {
+    setLabelFloating(true)
+  }
+
+  const handleBlur = () => {
+    if (inputRef.current?.value) return
+    setLabelFloating(false)
+  }
+
   return (
-    <label className={s.wrapper}>
+    <label className={`${s.wrapper} ${labelFloating ? s.floating : ''}`}>
       <span className={s.label}>{label}</span>
-      <input className={s.input} {...attrs} />
+      <input
+        ref={inputRef}
+        className={s.input}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        {...attrs}
+      />
     </label>
   )
 }

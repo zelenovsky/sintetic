@@ -5,8 +5,16 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { User } from '@payload-types'
 import TabViews from './TabViews'
+import { getDictionary } from '@/app/(app)/dictionaries'
 
-export default async function UserProfileSettingsPage() {
+export default async function UserProfileSettingsPage({
+  params,
+}: {
+  params: {
+    lang: string
+  }
+}) {
+  const d = await getDictionary(params.lang)
   const cookieStore = cookies()
   const userIdCookie = cookieStore.get('authorized')
 
@@ -35,13 +43,14 @@ export default async function UserProfileSettingsPage() {
     <>
       <header className={`${s.header} container`}>
         <Link href="/user" className={s.headerLink}>
-          Back
+          {d.navigation.back_text}
         </Link>
       </header>
 
       <div className="container">
-        <h1 className={s.title}>Settings</h1>
-        <TabViews user={user} />
+        <h1 className={s.title}>{d.user.settings_text}</h1>
+
+        <TabViews user={user} d={d} />
       </div>
     </>
   )

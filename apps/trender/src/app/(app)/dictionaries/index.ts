@@ -10,8 +10,11 @@ const dictionaries: { [key in SupportedLocales]: () => Promise<any> } = {
   'hi-IN': () => import('./hi-IN.json').then((module) => module.default),
 }
 
-const getDictionary = async (locale: SupportedLocales) => {
-  return dictionaries[locale]()
+const getDictionary = async (locale: string) => {
+  if (locale in dictionaries) {
+    return dictionaries[locale as SupportedLocales]()
+  }
+  return dictionaries['en-US']()
 }
 
 const rtlLngs = [

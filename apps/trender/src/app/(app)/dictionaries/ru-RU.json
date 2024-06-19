@@ -6,5 +6,39 @@
     "user": {
       "link_text": "Личный кабинет"
     }
+  },
+  "forms": {
+    "upload": {
+      "avatar": {
+        "input_text": "Загрузить фото"
+      }
+    },
+    "submit": {
+      "save_text": "Сохранить"
+    },
+    "email": {
+      "label_text": "Почта"
+    },
+    "first_name": {
+      "label_text": "Имя"
+    },
+    "last_name": {
+      "label_text": "Фамилия"
+    },
+    "username": {
+      "label_text": "Имя пользователя"
+    },
+    "location": {
+      "label_text": "Локация"
+    }
+  },
+  "navigation": {
+    "back_text": "Назад"
+  },
+  "user": {
+    "settings_text": "Настройки",
+    "profile_text": "Профиль",
+    "interests_text": "Интересы",
+    "security_text": "Безопасность"
   }
 }

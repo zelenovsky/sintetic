@@ -5,8 +5,16 @@ import Image from 'next/image'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { User, Media } from '@payload-types'
+import { getDictionary } from '../../dictionaries'
 
-export default async function UserProfilePage() {
+export default async function UserProfilePage({
+  params,
+}: {
+  params: {
+    lang: string
+  }
+}) {
+  const d = await getDictionary(params.lang)
   const cookieStore = cookies()
   const userIdCookie = cookieStore.get('authorized')
 
@@ -35,7 +43,7 @@ export default async function UserProfilePage() {
     <div className="container">
       <header className={s.header}>
         <Link href="/user/settings" className={s.headerLink}>
-          Settings
+          {d.user.settings_text}
         </Link>
       </header>
 

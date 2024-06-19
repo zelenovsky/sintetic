@@ -5,10 +5,17 @@
 
 .label {
   position: absolute;
-  top: 9px;
-  left: 12px;
-  font-size: 11px;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  font-size: 14px;
   color: var(--text-inactive-0);
+  white-space: nowrap;
+  transform: translate(16px, 15px) scale(1);
+  transform-origin: top left;
+  transition: transform 0.15s ease;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .input {
@@ -21,4 +28,8 @@
   padding: 22px 12px 6px 12px;
   color: black;
   height: 46px;
+}
+
+.floating .label {
+  transform: translate(12px, 8px) scale(0.85);
 }

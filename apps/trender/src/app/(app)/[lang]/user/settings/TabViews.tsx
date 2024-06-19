@@ -8,31 +8,30 @@ import type { User } from '@payload-types'
 
 type Props = {
   user: User
+  d: any
 }
 
-const initTabs = [
-  {
-    text: 'Profile',
-    slug: 'profile',
-    isActive: true,
-    viewComponent: ProfileView,
-  },
-  {
-    text: 'Interests',
-    slug: 'interests',
-    isActive: false,
-    viewComponent: InterestsView,
-  },
-  {
-    text: 'Security',
-    slug: 'security',
-    isActive: false,
-    viewComponent: SecurityView,
-  },
-]
-
-export default function TabViews({ user }: Props) {
-  const [tabs, setTabs] = useState<Tab[]>(initTabs)
+export default function TabViews({ user, d }: Props) {
+  const [tabs, setTabs] = useState<Tab[]>([
+    {
+      text: d.user.profile_text,
+      slug: 'profile',
+      isActive: true,
+      viewComponent: ProfileView,
+    },
+    {
+      text: d.user.interests_text,
+      slug: 'interests',
+      isActive: false,
+      viewComponent: InterestsView,
+    },
+    {
+      text: d.user.security_text,
+      slug: 'security',
+      isActive: false,
+      viewComponent: SecurityView,
+    },
+  ])
 
   const handleActive = (activeTab: Tab) => () => {
     setTabs(
@@ -58,8 +57,7 @@ export default function TabViews({ user }: Props) {
   return (
     <>
       <Tabs tabs={tabs} setActive={handleActive} />
-
-      <CurrentView user={user} />
+      <CurrentView user={user} d={d} />
     </>
   )
 }
