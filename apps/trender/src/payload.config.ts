@@ -12,6 +12,10 @@ import Media from './collections/Media'
 import Verticals from './collections/Verticals'
 import Tags from './collections/Tags'
 import MagicLinks from './collections/MagicLinks'
+import ReadingHistory from './collections/ReadingHistory'
+import CommentsHistory from './collections/CommentsHistory'
+import Likes from './collections/Likes'
+import Bookmarks from './collections/Bookmarks'
 
 import { postEditor } from './editor/config'
 
@@ -32,7 +36,19 @@ export default buildConfig({
       projectDomains: ['ru.sintetic.io', 'in.sintetic.io'],
     },
   },
-  collections: [Users, Admins, Articles, Media, Verticals, Tags, MagicLinks],
+  collections: [
+    Users,
+    Admins,
+    Articles,
+    Media,
+    Verticals,
+    Tags,
+    MagicLinks,
+    ReadingHistory,
+    CommentsHistory,
+    Likes,
+    Bookmarks,
+  ],
   editor: postEditor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

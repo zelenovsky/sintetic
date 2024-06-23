@@ -3,6 +3,12 @@
     "home": {
       "link_text": "Home"
     },
+    "menu": {
+      "link_text": "Menu"
+    },
+    "bookmarks": {
+      "link_text": "Bookmarks"
+    },
     "user": {
       "link_text": "User"
     }

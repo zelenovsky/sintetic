@@ -3,6 +3,12 @@
     "home": {
       "link_text": "घर"
     },
+    "menu": {
+      "link_text": "मेनू"
+    },
+    "bookmarks": {
+      "link_text": "बुकमार्क"
+    },
     "user": {
       "link_text": "उपयोगकर्ता"
     }

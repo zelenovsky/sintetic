@@ -1,7 +1,7 @@
 .container {
   display: block;
   width: 100vw;
-  height: 58px;
+  height: var(--tapbar-height);
   flex-shrink: 0;
   background-color: var(--tapbar-bg);
 }
@@ -18,7 +18,8 @@
 .tapbarInner {
   display: flex;
   justify-content: center;
-  height: 58px;
+  height: var(--tapbar-height);
+  border-top: 1px solid #eee;
 }
 
 .link {

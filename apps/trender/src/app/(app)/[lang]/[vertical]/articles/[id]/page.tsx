@@ -1,8 +1,10 @@
-import Script from 'next/script'
 import { getPayload } from 'payload'
+import Image from 'next/image'
 import Author from '@/lib/components/Author'
 import configPromise from '@payload-config'
 import TechLogo from '@/lib/svg-icons/TechLogo'
+import AnalyticsHandler from './AnalyticsHandler'
+import CarouselHandler from './CarouselHandler'
 import type { Article, Admin, Media } from '@payload-types'
 
 type Params = {
@@ -71,7 +73,10 @@ export default async function ArticlePage({ params, searchParams }: Props) {
   const author = doc.author as Admin
 
   return (
-    <article className="s-post">
+    <article className="s-post" data-analytics="article-root">
+      <AnalyticsHandler />
+      <CarouselHandler />
+
       {verticals.length > 0 && (
         <style>
           {`
@@ -82,8 +87,6 @@ export default async function ArticlePage({ params, searchParams }: Props) {
           `}
         </style>
       )}
-
-      <Script src="/javascript/gallery.js" strategy="afterInteractive" />
 
       <section className="s-post-teaser container">
         {params.vertical === 'tech' && <TechLogo />}
@@ -101,7 +104,7 @@ export default async function ArticlePage({ params, searchParams }: Props) {
       </section>
 
       {doc.teaser_image && (
-        <img
+        <Image
           src={(doc.teaser_image as Media).url ?? ''}
           alt={(doc.teaser_image as Media).alt ?? ''}
           className="s-post-teaser_image"

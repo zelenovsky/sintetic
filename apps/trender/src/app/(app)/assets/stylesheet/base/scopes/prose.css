@@ -29,6 +29,10 @@
   line-height: 150%;
 }
 
+.s-prose p:last-child {
+  margin-block-end: 0;
+}
+
 .s-prose h2 {
   font-size: var(--heading-2);
   margin-block: 49px 20px;

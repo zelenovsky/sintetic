@@ -3,6 +3,12 @@
     "home": {
       "link_text": "Домой"
     },
+    "menu": {
+      "link_text": "Меню"
+    },
+    "bookmarks": {
+      "link_text": "Закладки"
+    },
     "user": {
       "link_text": "Личный кабинет"
     }
