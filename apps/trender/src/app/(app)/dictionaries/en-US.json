@@ -45,6 +45,12 @@
     "settings_text": "Settings",
     "profile_text": "Profile",
     "interests_text": "Interests",
-    "security_text": "Security"
+    "security_text": "Security",
+    "tab_views": {
+      "reading_history_text": "Reading history",
+      "likes_text": "Likes",
+      "favorites_text": "Favorites",
+      "comments_text": "Comments"
+    }
   }
 }

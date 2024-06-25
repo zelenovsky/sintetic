@@ -15,6 +15,10 @@ export interface Config {
     verticals: Vertical;
     tags: Tag;
     'magic-links': MagicLink;
+    'reading-history': ReadingHistory;
+    'comments-history': CommentsHistory;
+    likes: Like;
+    bookmarks: Bookmark;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -145,6 +149,54 @@ export interface MagicLink {
   user: number | User;
   token: string;
   expires_at: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reading-history".
+ */
+export interface ReadingHistory {
+  id: number;
+  reading_time_sec?: number | null;
+  reading_percent?: number | null;
+  article: number | Article;
+  user?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments-history".
+ */
+export interface CommentsHistory {
+  id: number;
+  comment: string;
+  reply_to?: (number | null) | User;
+  article: number | Article;
+  user: number | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "likes".
+ */
+export interface Like {
+  id: number;
+  article: number | Article;
+  user: number | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bookmarks".
+ */
+export interface Bookmark {
+  id: number;
+  article: number | Article;
+  user: number | User;
   updatedAt: string;
   createdAt: string;
 }

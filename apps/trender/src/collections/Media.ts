@@ -6,7 +6,9 @@ export default {
     useAsTitle: 'alt',
   },
   access: {
+    read: () => true,
     create: () => true,
+    update: () => true,
   },
   fields: [
     {

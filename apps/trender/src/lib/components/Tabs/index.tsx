@@ -5,6 +5,7 @@ export type Tab = {
   slug: string
   isActive: boolean
   viewComponent: (viewProps: any) => JSX.Element
+  count?: number
 }
 
 type Props = {
@@ -19,6 +20,7 @@ export default function Tabs({ tabs, setActive }: Props) {
         <li className={tab.isActive ? s.active : ''} key={index}>
           <button className={s.button} type="button" onClick={setActive(tab)}>
             {tab.text}
+            {tab.count && <span className={s.count}>{tab.count}</span>}
           </button>
         </li>
       ))}

@@ -1,0 +1,36 @@
+.container {
+  position: relative;
+  display: flex;
+  gap: 14px;
+}
+
+.image {
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.date {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-inactive-0);
+  margin: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 400;
+  margin-block-start: 2px;
+}
+
+.link {
+  text-decoration: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+}

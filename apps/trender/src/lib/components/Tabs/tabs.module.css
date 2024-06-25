@@ -29,3 +29,8 @@ li.active {
   font-size: 12px;
   font-weight: 600;
 }
+
+.count {
+  margin-inline-start: 4px;
+  opacity: 0.5;
+}

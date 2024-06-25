@@ -103,13 +103,23 @@ export default async function ArticlePage({ params, searchParams }: Props) {
         />
       </section>
 
-      {doc.teaser_image && (
-        <Image
-          src={(doc.teaser_image as Media).url ?? ''}
-          alt={(doc.teaser_image as Media).alt ?? ''}
-          className="s-post-teaser_image"
-        />
-      )}
+      <section
+        className="container"
+        style={{
+          // @ts-ignore
+          '--base-safe-area': 0,
+        }}
+      >
+        {doc.teaser_image && (
+          <Image
+            src={(doc.teaser_image as Media).url ?? ''}
+            alt={(doc.teaser_image as Media).alt ?? ''}
+            width={390}
+            height={390}
+            className="s-post-teaser_image"
+          />
+        )}
+      </section>
 
       <section
         className="container s-prose"

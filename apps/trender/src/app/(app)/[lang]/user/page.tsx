@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { User, Media } from '@payload-types'
 import { getDictionary } from '../../dictionaries'
+import TabViews from './TabViews'
 
 export default async function UserProfilePage({
   params,
@@ -83,6 +84,8 @@ export default async function UserProfilePage({
           {user.username && <p className={s.username}>@{user.username}</p>}
         </div>
       </section>
+
+      <TabViews user={user} d={d} />
     </div>
   )
 }

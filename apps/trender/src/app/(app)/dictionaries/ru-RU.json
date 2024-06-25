@@ -45,6 +45,12 @@
     "settings_text": "Настройки",
     "profile_text": "Профиль",
     "interests_text": "Интересы",
-    "security_text": "Безопасность"
+    "security_text": "Безопасность",
+    "tab_views": {
+      "reading_history_text": "История",
+      "likes_text": "Лайки",
+      "favorites_text": "Избранное",
+      "comments_text": "Комментарии"
+    }
   }
 }

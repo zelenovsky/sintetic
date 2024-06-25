@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   gap: 17px;
+  margin-block-end: 32px;
 }
 
 .avatar {
@@ -43,4 +44,13 @@
   font-size: 12px;
   font-weight: 600;
   margin-block: 4px;
+}
+
+.view {
+  margin-block-start: 26px;
+}
+
+.list {
+  display: grid;
+  gap: 16px;
 }

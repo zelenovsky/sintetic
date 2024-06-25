@@ -45,6 +45,12 @@
     "settings_text": "सेटिंग्स",
     "profile_text": "प्रोफ़ाइल",
     "interests_text": "रुचियां",
-    "security_text": "सुरक्षा"
+    "security_text": "सुरक्षा",
+    "tab_views": {
+      "reading_history_text": "इतिहास पढ़ना",
+      "likes_text": "पसंद करता है",
+      "favorites_text": "पसंदीदा",
+      "comments_text": "टिप्पणियाँ"
+    }
   }
 }

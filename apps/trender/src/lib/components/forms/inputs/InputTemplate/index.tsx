@@ -1,6 +1,6 @@
 'use client'
 import s from './input.module.css'
-import { useState, createRef } from 'react'
+import { useState, createRef, useEffect } from 'react'
 
 type Props = {
   label: string
@@ -10,6 +10,12 @@ type Props = {
 export default function InputTemplate({ label, ...attrs }: Props) {
   const [labelFloating, setLabelFloating] = useState(false)
   const inputRef = createRef<HTMLInputElement>()
+
+  useEffect(() => {
+    if (inputRef.current?.value) {
+      setLabelFloating(true)
+    }
+  }, [])
 
   const handleFocus = () => {
     setLabelFloating(true)
