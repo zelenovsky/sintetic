@@ -122,7 +122,7 @@ export const BlocksHTMLConverter: HTMLConverter<SerializedUploadNode> = {
                 <div>
                   <div class="b-numbers">
                     <svg width="19" height="21" viewBox="0 0 19 21" fill="none">
-                      <path d="M0.613672 20L12.7937 0.399999H15.3137L3.13367 20H0.613672Z" fill="#3D3D3D"/>
+                      <path d="M0.613672 20L12.7937 0.399999H15.3137L3.13367 20H0.613672Z" fill="#ccc"/>
                     </svg>
                     <span class="b-index">${index + 1}</span>
                     <span class="b-gallery-size">${gallery.length}</span>
