@@ -52,5 +52,10 @@
       "favorites_text": "Избранное",
       "comments_text": "Комментарии"
     }
+  },
+  "comments": {
+    "title_text": "Комментарии",
+    "send_text": "Отправить",
+    "placeholder_text": "Что думаете? Напишите комментарий"
   }
 }

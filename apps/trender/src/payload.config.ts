@@ -13,8 +13,9 @@ import Verticals from './collections/Verticals'
 import Tags from './collections/Tags'
 import MagicLinks from './collections/MagicLinks'
 import ReadingHistory from './collections/ReadingHistory'
-import CommentsHistory from './collections/CommentsHistory'
-import Likes from './collections/Likes'
+import Comments from './collections/Comments'
+import ArticleLikes from './collections/ArticleLikes'
+import CommentLikes from './collections/CommentLikes'
 import Bookmarks from './collections/Bookmarks'
 
 import { postEditor } from './editor/config'
@@ -45,8 +46,9 @@ export default buildConfig({
     Tags,
     MagicLinks,
     ReadingHistory,
-    CommentsHistory,
-    Likes,
+    Comments,
+    ArticleLikes,
+    CommentLikes,
     Bookmarks,
   ],
   editor: postEditor,

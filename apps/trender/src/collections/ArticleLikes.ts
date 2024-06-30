@@ -1,21 +1,11 @@
 import type { CollectionConfig } from 'payload/types'
 
 export default {
-  slug: 'comments-history',
+  slug: 'article-likes',
   admin: {
-    hidden: () => false,
+    hidden: () => true,
   },
   fields: [
-    {
-      name: 'comment',
-      type: 'textarea',
-      required: true,
-    },
-    {
-      name: 'reply_to',
-      type: 'relationship',
-      relationTo: 'users',
-    },
     {
       name: 'article',
       type: 'relationship',

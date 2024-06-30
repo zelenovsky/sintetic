@@ -52,5 +52,10 @@
       "favorites_text": "Favorites",
       "comments_text": "Comments"
     }
+  },
+  "comments": {
+    "title_text": "Comments",
+    "send_text": "Send",
+    "placeholder_text": "Write a comment"
   }
 }

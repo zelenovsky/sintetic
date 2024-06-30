@@ -52,5 +52,10 @@
       "favorites_text": "पसंदीदा",
       "comments_text": "टिप्पणियाँ"
     }
+  },
+  "comments": {
+    "title_text": "Comments",
+    "send_text": "Send",
+    "placeholder_text": "Что думаете? Напишите комментарий"
   }
 }

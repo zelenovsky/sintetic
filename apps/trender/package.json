@@ -31,6 +31,7 @@
     "payload": "3.0.0-beta.29",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-textarea-autosize": "^8.5.3",
     "resolve-accept-language": "^3.1.4",
     "sharp": "^0.33.4",
     "zod": "^3.23.8"

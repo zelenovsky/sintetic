@@ -1,11 +1,14 @@
 import s from './article.module.css'
 import { getPayload } from 'payload'
 import Image from 'next/image'
+import { cookies } from 'next/headers'
 import Author from '@/lib/components/Author'
+import Comments from '@/lib/components/Comments'
 import configPromise from '@payload-config'
 import TechLogo from '@/lib/svg-icons/TechLogo'
 import AnalyticsHandler from './AnalyticsHandler'
 import CarouselHandler from './CarouselHandler'
+import { getDictionary } from '../../../../dictionaries'
 import type { Article, Admin, Media } from '@payload-types'
 
 type Params = {
@@ -20,6 +23,7 @@ type Props = {
 }
 
 export default async function ArticlePage({ params, searchParams }: Props) {
+  const d = await getDictionary(params.lang)
   const payload = await getPayload({ config: configPromise })
 
   let doc: Article | null = null
@@ -73,10 +77,37 @@ export default async function ArticlePage({ params, searchParams }: Props) {
 
   const author = doc.author as Admin
 
+  const cookieStore = cookies()
+  const userId = cookieStore.get('authorized')
+
+  let currentUser = null
+  if (userId) {
+    currentUser = await payload.findByID({
+      collection: 'users',
+      id: Number(userId.value),
+    })
+  }
+
+  const { docs: comments } = await payload.find({
+    collection: 'comments',
+    where: {
+      article: {
+        equals: params.id,
+      },
+    },
+  })
+
   return (
     <article className={s.article} data-analytics="article-root">
       <AnalyticsHandler />
       <CarouselHandler />
+
+      <Comments
+        d={d}
+        articleId={params.id}
+        currentUser={currentUser}
+        comments={comments}
+      />
 
       {/* {verticals.length > 0 && (
         <style>

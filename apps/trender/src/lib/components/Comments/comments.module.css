@@ -1,0 +1,98 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: white;
+  display: grid;
+  grid-template-rows: 50px 1fr max-content;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 5%);
+}
+
+.headerTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: #535353;
+}
+
+.close {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  padding: 10px;
+  transform: translateY(-50%);
+  border: none;
+  background-color: transparent;
+}
+
+.avatar {
+  width: 39px;
+  height: 39px;
+  border: 1px solid black;
+  border-radius: 9999px;
+}
+
+.comments {
+  display: grid;
+  gap: 30px;
+  width: 100%;
+  padding-block: 17px;
+  overflow: auto;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: 39px 1fr;
+  gap: 7px;
+  padding-block: 6px;
+  background-color: #f2f2f2;
+  width: 100%;
+}
+
+.textInput {
+  border-radius: 2px;
+  font-family: TT Norms Pro;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 4px 15px;
+  color: #535353;
+  resize: none;
+  min-height: 39px;
+  border: 1px solid transparent;
+
+  &:focus {
+    border-color: black;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #666;
+    opacity: 0.6;
+  }
+}
+
+.form {
+  display: grid;
+  gap: 13px;
+}
+
+.submit {
+  font-size: 12px;
+  font-weight: 500;
+  height: 30px;
+  background-color: black;
+  border-radius: 2px;
+  display: grid;
+  place-items: center;
+  color: white;
+  width: max-content;
+  border: none;
+  padding-inline: 15px;
+  margin-left: auto;
+}

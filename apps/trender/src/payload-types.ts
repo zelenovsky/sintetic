@@ -16,7 +16,7 @@ export interface Config {
     tags: Tag;
     'magic-links': MagicLink;
     'reading-history': ReadingHistory;
-    'comments-history': CommentsHistory;
+    comments: Comment;
     likes: Like;
     bookmarks: Bookmark;
     'payload-preferences': PayloadPreference;
@@ -167,12 +167,12 @@ export interface ReadingHistory {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "comments-history".
+ * via the `definition` "comments".
  */
-export interface CommentsHistory {
+export interface Comment {
   id: number;
   comment: string;
-  reply_to?: (number | null) | User;
+  reply_to?: (number | null) | Comment;
   article: number | Article;
   user: number | User;
   updatedAt: string;

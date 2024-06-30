@@ -1,0 +1,41 @@
+.comment {
+  display: grid;
+  grid-template-columns: 39px 1fr;
+  gap: 7px;
+}
+
+.body {
+  border-radius: 2px;
+  padding: 10px 16px;
+  background-color: #e6e6e6;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #535353;
+  margin-block: 0;
+}
+
+.date {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+  opacity: 0.6;
+  margin-block: 0;
+}
+
+.text {
+  font-size: 13px;
+  font-weight: 400;
+  color: #535353;
+  margin-block: 10px 0;
+}
+
+.avatar {
+  width: 39px;
+  height: 39px;
+  border: 1px solid black;
+  border-radius: 9999px;
+  margin-top: 6px;
+}
