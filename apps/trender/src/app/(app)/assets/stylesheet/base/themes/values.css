@@ -1,5 +1,6 @@
 :root {
-  --base-safe-area: 11px;
+  --max-width: 390px;
+  --base-safe-area: 17px;
 
   --heading-2: 24px;
   --heading-3: 20px;

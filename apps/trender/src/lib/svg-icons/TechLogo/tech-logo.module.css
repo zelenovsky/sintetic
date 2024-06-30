@@ -1,6 +1,3 @@
 .logo {
   max-width: 283px;
-  margin-left: calc(var(--base-safe-area) * -1);
-  margin-bottom: 63px;
-  opacity: 0.3;
 }

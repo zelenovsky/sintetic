@@ -1,5 +1,6 @@
 .s-gallery {
   margin-block: 45px;
+  margin-inline: calc(-1 * var(--base-safe-area));
 }
 
 .s-gallery p {
@@ -38,6 +39,8 @@
   display: grid;
   align-items: center;
   width: 100%;
+  padding-block: 27px;
+  padding-inline: var(--base-safe-area);
   background-color: var(--surface-2);
   border-radius: 2px;
 }
@@ -45,6 +48,7 @@
 .s-gallery .b-pagination {
   display: flex;
   gap: clamp(2px, var(--pagination-gap-size), 8px);
+  padding-inline: var(--base-safe-area);
   margin-block-start: 10px;
 }
 
@@ -81,6 +85,7 @@
 .s-gallery .b-descriptions {
   display: grid;
   margin-block-start: 15px;
+  padding-inline: var(--base-safe-area);
 }
 
 .s-gallery .b-descriptions li {
@@ -118,4 +123,5 @@
   width: 100%;
   max-width: initial;
   margin-inline: 0;
+  border-radius: 2px;
 }

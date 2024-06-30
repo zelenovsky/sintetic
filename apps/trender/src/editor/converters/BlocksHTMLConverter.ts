@@ -2,7 +2,7 @@ import {
   convertLexicalToHTML,
   consolidateHTMLConverters,
   type HTMLConverter,
-  type SerializedUploadNode
+  type SerializedUploadNode,
 } from '@payloadcms/richtext-lexical'
 import { galleryImageDescriptionEditor } from '../../blocks/GalleryBlock'
 
@@ -45,17 +45,22 @@ export const BlocksHTMLConverter: HTMLConverter<SerializedUploadNode> = {
         <article class="s-post-external-product">
           <div class="edge-scroll no-scrollbar">
             <ul class="b-gallery">
-              ${gallery.map(([url, filename]) => (
-                `<li>
+              ${gallery
+                .map(
+                  ([url, filename]) =>
+                    `<li>
                   <img src="${url}" alt="${filename}" />
-                </li>`
-              )).join('')}
+                </li>`,
+                )
+                .join('')}
             </ul>
           </div>
 
           <h1 class="b-title">${fields.title}</h1>
 
-          <p class="b-price">${Number(fields.price).toLocaleString("ru-RU")} ₽</p>
+          <p class="b-price">${Number(fields.price).toLocaleString(
+            'ru-RU',
+          )} ₽</p>
 
           <a href="${fields.link.url}" class="b-link">${fields.link.text}</a>
         </article>
@@ -78,28 +83,42 @@ export const BlocksHTMLConverter: HTMLConverter<SerializedUploadNode> = {
         <section class="s-gallery" data-gallery="root">
           <div class="b-actions">
             <ul class="b-images no-scrollbar" data-gallery="images">
-              ${gallery.map((image, index) => (
-                `<li class=${index === 0 ? 'is-active' : ''}>
-                  <img src="${image.url}" alt="${image.filename}" loading="lazy" />
-                </li>`
-              )).join('')}
+              ${gallery
+                .map(
+                  (image, index) =>
+                    `<li class=${index === 0 ? 'is-active' : ''}>
+                  <img src="${image.url}" alt="${
+                      image.filename
+                    }" loading="lazy" />
+                </li>`,
+                )
+                .join('')}
             </ul>
 
             <button type="button" class="b-action is-prev" data-gallery="action-prev">Prev</button>
             <button type="button" class="b-action is-next" data-gallery="action-next">Next</button>
           </div>
 
-          ${gallery.length > 1 ? (
-            `<ul class="b-pagination" style="--pagination-gap-size: ${100 / gallery.length / 4}px" data-gallery="pagination">
-              ${gallery.map((_, index) => (
-                `<li class=${index === 0 ? 'is-active' : ''}></li>`
-              )).join('')}
+          ${
+            gallery.length > 1
+              ? `<ul class="b-pagination" style="--pagination-gap-size: ${
+                  100 / gallery.length / 4
+                }px" data-gallery="pagination">
+              ${gallery
+                .map(
+                  (_, index) =>
+                    `<li class=${index === 0 ? 'is-active' : ''}></li>`,
+                )
+                .join('')}
             </ul>`
-          ) : ''}
+              : ''
+          }
 
           <ul class="b-descriptions" data-gallery="descriptions">
-            ${gallery.map((image, index) => (
-              `<li class=${index === 0 ? 'is-active' : ''}>
+            ${gallery
+              .map(
+                (image, index) =>
+                  `<li class=${index === 0 ? 'is-active' : ''}>
                 <div>
                   <div class="b-numbers">
                     <svg width="19" height="21" viewBox="0 0 19 21" fill="none">
@@ -112,8 +131,9 @@ export const BlocksHTMLConverter: HTMLConverter<SerializedUploadNode> = {
                 <div class="b-description">
                   ${image.description_html}
                 </div>
-              </li>`
-            )).join('')}
+              </li>`,
+              )
+              .join('')}
           </ul>
         </section>
       `
@@ -136,19 +156,35 @@ async function getMediaUrl(id: number, payload: any) {
 
   if (!(uploadDocument?.mimeType as string)?.startsWith('image')) {
     // Only images can be serialized as HTML
-    throw new Error('BlocksHTMLConverter: Only images can be serialized as HTML')
+    throw new Error(
+      'BlocksHTMLConverter: Only images can be serialized as HTML',
+    )
   }
 
   return [url, uploadDocument?.filename]
 }
 
-async function buildGalleryEntity(imageId: number, description: any, payload: any) {
+async function buildGalleryEntity(
+  imageId: number,
+  description: any,
+  payload: any,
+) {
   const [url, filename] = await getMediaUrl(imageId, payload)
+  const e = await galleryImageDescriptionEditor({ config: payload.config })
   const description_html = await convertLexicalToHTML({
-    // @ts-ignore
-    converters: consolidateHTMLConverters({ editorConfig: galleryImageDescriptionEditor.editorConfig }),
+    converters: consolidateHTMLConverters({
+      editorConfig: e.editorConfig,
+    }),
     data: description,
-    payload
+    payload,
   })
+
+  // const description_html = await convertLexicalToHTML({
+  //   converters: consolidateHTMLConverters({
+  //     editorConfig: galleryImageDescriptionEditor.editorConfig,
+  //   }),
+  //   data: description,
+  //   payload,
+  // })
   return { url, filename, description_html }
 }

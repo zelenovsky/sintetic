@@ -3,7 +3,7 @@ import {
   convertLexicalToHTML,
   consolidateHTMLConverters,
   type HTMLConverter,
-  type SerializedUploadNode
+  type SerializedUploadNode,
 } from '@payloadcms/richtext-lexical'
 import { captionEditor } from '../config'
 
@@ -24,21 +24,21 @@ export const UploadHTMLConverter: HTMLConverter<SerializedUploadNode> = {
     if (node.fields?.caption) {
       caption_html = await convertLexicalToHTML({
         // @ts-ignore
-        converters: consolidateHTMLConverters({ editorConfig: captionEditor.editorConfig }),
+        converters: consolidateHTMLConverters({
+          editorConfig: captionEditor.editorConfig,
+        }),
         data: node.fields.caption as any,
-        payload
+        payload,
       })
     }
 
     if (caption_html) {
-      return (
-        `<figure>
+      return `<figure>
           <img src="${url}" alt="${uploadDocument?.filename}" height="300">
           <figcaption>${caption_html}</figcaption>
         </figure>`
-      )
     }
-  
+
     return `<img src="${url}" alt="${uploadDocument?.filename}" height="300">`
   },
   nodeTypes: [UploadNode.getType()],

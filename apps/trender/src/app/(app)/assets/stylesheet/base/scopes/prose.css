@@ -29,7 +29,11 @@
   line-height: 150%;
 }
 
-.s-prose p:last-child {
+.s-prose *:first-child {
+  margin-block-start: 0;
+}
+
+.s-prose *:last-child {
   margin-block-end: 0;
 }
 
@@ -67,4 +71,12 @@
 
 .s-prose li + li {
   margin-block-start: 15px;
+}
+
+.s-prose::first-letter {
+  font-weight: 700;
+  -webkit-initial-letter: 3;
+  initial-letter: 3;
+  line-height: 1;
+  margin-inline-end: 10px;
 }

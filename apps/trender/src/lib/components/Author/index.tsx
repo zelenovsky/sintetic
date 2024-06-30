@@ -1,3 +1,4 @@
+import s from './author.module.css'
 import Image from 'next/image'
 
 type Props = {
@@ -8,20 +9,20 @@ type Props = {
 
 export default function Author({ avatar_url, name, description }: Props) {
   return (
-    <address className="s-post-author">
+    <address className={s.container}>
       {avatar_url && (
         <Image
           src={avatar_url}
           alt={name}
-          className="s-post-author_avatar"
+          className={s.avatar}
           width={43}
           height={43}
         />
       )}
 
       <div>
-        <p className="s-post-author_name">{name}</p>
-        <p className="s-post-author_description">{description}</p>
+        <p className={s.name}>{name}</p>
+        <p className={s.description}>{description}</p>
       </div>
     </address>
   )

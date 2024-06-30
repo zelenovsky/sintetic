@@ -1,0 +1,70 @@
+.article {
+  margin-block-end: 30px;
+  border-radius: 10px 10px 0 0;
+  background-color: #faf8f4;
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+.teaser {
+  background-color: #fadadd;
+  padding-block: 15px 200px;
+  border-radius: 10px 10px 0 0;
+}
+
+.teaserTitle {
+  display: inline;
+  font-family: 'Fira Sans Extra Condensed';
+  font-weight: 500;
+  font-size: 46px;
+  line-height: 95%;
+}
+
+.teaserSubtitle {
+  display: inline;
+  font-family: 'Fira Sans Extra Condensed';
+  font-size: 33px;
+  font-weight: 400;
+  line-height: 110%;
+  opacity: 0.6;
+}
+
+.teaserDescription {
+  font-family: 'TT Norms Pro';
+  font-size: 18px;
+  font-style: italic;
+  margin-inline: 15px;
+  line-height: 140%;
+  margin-block: 34px 0;
+}
+
+.teaserImage {
+  margin-top: -170px;
+  border-radius: 2px;
+  border: 1px solid white;
+}
+
+.bodyContainer {
+  margin-top: -64px;
+  padding-top: 64px;
+  overflow: hidden;
+}
+
+.body {
+  background-color: white;
+  padding-block: 52px 0;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 -4px 64px 0 rgba(0, 0, 0, 6%);
+}
+
+.bannerContainer {
+  height: 611px;
+  padding-block: 20px;
+}
+
+.banner {
+  height: 296px;
+  background-color: white;
+  position: sticky;
+  top: 10px;
+}

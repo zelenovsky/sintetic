@@ -19,7 +19,7 @@
     "migrate:reset": "payload migrate:reset"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.583.0",
+    "@aws-sdk/client-s3": "^3.606.0",
     "@payloadcms/db-postgres": "3.0.0-beta.29",
     "@payloadcms/next": "3.0.0-beta.29",
     "@payloadcms/richtext-lexical": "3.0.0-beta.29",
@@ -27,7 +27,7 @@
     "jsonwebtoken": "^9.0.2",
     "next": "14.3.0-canary.37",
     "next-client-cookies": "^1.1.1",
-    "nodemailer": "^6.9.13",
+    "nodemailer": "^6.9.14",
     "payload": "3.0.0-beta.29",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -37,12 +37,12 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^20.12.12",
+    "@types/node": "^20.14.9",
     "@types/nodemailer": "^6.4.15",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   }
 }

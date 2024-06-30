@@ -1,3 +1,4 @@
+import s from './article.module.css'
 import { getPayload } from 'payload'
 import Image from 'next/image'
 import Author from '@/lib/components/Author'
@@ -73,11 +74,11 @@ export default async function ArticlePage({ params, searchParams }: Props) {
   const author = doc.author as Admin
 
   return (
-    <article className="s-post" data-analytics="article-root">
+    <article className={s.article} data-analytics="article-root">
       <AnalyticsHandler />
       <CarouselHandler />
 
-      {verticals.length > 0 && (
+      {/* {verticals.length > 0 && (
         <style>
           {`
             ${verticals[0].theme_light_css ?? ''}
@@ -86,45 +87,47 @@ export default async function ArticlePage({ params, searchParams }: Props) {
             }
           `}
         </style>
-      )}
+      )} */}
 
-      <section className="s-post-teaser container">
+      <section className={`${s.teaser} container`}>
         {params.vertical === 'tech' && <TechLogo />}
 
-        <div className="s-post-teaser_content">
-          <h1>{doc.title}</h1>
-          <p>{doc.description}</p>
+        <div>
+          <h1 className={s.teaserTitle}>{doc.title}</h1>
+          <p className={s.teaserSubtitle}>{doc.subtitle}</p>
         </div>
 
-        <Author
+        <p className={s.teaserDescription}>{doc.description}</p>
+
+        {/* <Author
           name={author?.name ?? ''}
           avatar_url={(author?.avatar as Media)?.url ?? ''}
           description={author?.description ?? ''}
-        />
+        /> */}
       </section>
 
-      <section
-        className="container"
-        style={{
-          // @ts-ignore
-          '--base-safe-area': 0,
-        }}
-      >
+      <section className="container">
         {doc.teaser_image && (
           <Image
             src={(doc.teaser_image as Media).url ?? ''}
             alt={(doc.teaser_image as Media).alt ?? ''}
             width={390}
             height={390}
-            className="s-post-teaser_image"
+            className={s.teaserImage}
           />
         )}
+
+        <div className={s.bannerContainer}>
+          <div className={s.banner}></div>
+        </div>
       </section>
 
-      <section
-        className="container s-prose"
-        dangerouslySetInnerHTML={{ __html: doc.content_html as string }}
-      />
+      <div className={s.bodyContainer}>
+        <section
+          className={`${s.body} container s-prose`}
+          dangerouslySetInnerHTML={{ __html: doc.content_html as string }}
+        />
+      </div>
     </article>
   )
 }
