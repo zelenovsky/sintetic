@@ -56,6 +56,11 @@
   "comments": {
     "title_text": "Comments",
     "send_text": "Send",
-    "placeholder_text": "Write a comment"
+    "placeholder_text": "Write a comment",
+    "reply_to_row_text": "Answer to",
+    "reply_text": "Reply",
+    "reply_button_text": "Answer",
+    "cancel_reply_to_text": "Cancel",
+    "delete_text": "Delete"
   }
 }

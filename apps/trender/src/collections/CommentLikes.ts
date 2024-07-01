@@ -5,6 +5,12 @@ export default {
   admin: {
     hidden: () => true,
   },
+  access: {
+    read: () => true,
+    create: () => true,
+    update: () => true,
+    delete: () => true,
+  },
   fields: [
     {
       name: 'comment',

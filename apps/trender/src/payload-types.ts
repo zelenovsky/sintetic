@@ -17,7 +17,8 @@ export interface Config {
     'magic-links': MagicLink;
     'reading-history': ReadingHistory;
     comments: Comment;
-    likes: Like;
+    'article-likes': ArticleLike;
+    'comment-likes': CommentLike;
     bookmarks: Bookmark;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -180,11 +181,22 @@ export interface Comment {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "likes".
+ * via the `definition` "article-likes".
  */
-export interface Like {
+export interface ArticleLike {
   id: number;
   article: number | Article;
+  user: number | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comment-likes".
+ */
+export interface CommentLike {
+  id: number;
+  comment: number | Comment;
   user: number | User;
   updatedAt: string;
   createdAt: string;

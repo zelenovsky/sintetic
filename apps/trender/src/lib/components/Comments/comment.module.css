@@ -1,10 +1,16 @@
 .comment {
   display: grid;
+  grid-template-areas: 'avatar body' 'avatar actions';
   grid-template-columns: 39px 1fr;
-  gap: 7px;
+  column-gap: 7px;
+}
+
+.repliedComment {
+  padding-left: 46px;
 }
 
 .body {
+  position: relative;
   border-radius: 2px;
   padding: 10px 16px;
   background-color: #e6e6e6;
@@ -38,4 +44,69 @@
   border: 1px solid black;
   border-radius: 9999px;
   margin-top: 6px;
+}
+
+.like {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateY(50%);
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.like svg {
+  position: relative;
+  flex-shrink: 0;
+  width: 18px;
+}
+
+.like span {
+  background-color: black;
+  color: white;
+  font-size: 8px;
+  font-weight: 500;
+  height: 12px;
+  min-width: 25px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline: 10px 3px;
+  margin-inline: -10px;
+}
+
+.myLike span {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline-end: 62px;
+}
+
+.replyAction {
+  background-color: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px;
+  color: #535353;
+}
+
+.deleteAction {
+  background-color: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px;
+  color: #999;
 }

@@ -3,7 +3,7 @@ import s from './comments.module.css'
 import { useEffect, useState, type FormEvent } from 'react'
 import { createPortal, useFormState } from 'react-dom'
 import TextareaAutosize from 'react-textarea-autosize'
-import { createComment } from './actions'
+import { createComment, deleteComment } from './actions'
 import Submit from '@/lib/components/forms/inputs/Submit'
 import Avatar from '@/lib/components/Avatar'
 import CommentComponent from './Comment'
@@ -16,25 +16,69 @@ type Props = {
   comments: Comment[]
 }
 
+type DeletedCommentFormState = {
+  deletedComment: Comment | null
+  success: boolean
+}
+
 export default function ({ d, articleId, currentUser, comments }: Props) {
-  const [state, formAction] = useFormState(createComment, {
+  const [createCommentFormState, formAction] = useFormState(createComment, {
     newComment: null,
     success: false,
   })
+  const [deleteCommentFormState, deleteCommentAction] = useFormState<
+    DeletedCommentFormState,
+    FormData
+  >(deleteComment, {
+    deletedComment: null,
+    success: false,
+  })
+
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
-  const [focus, setFocus] = useState(false)
-  const [runtimeComments, setRuntimeComments] = useState<Comment[]>([])
+  const [sendButtonVisible, setSendButtonVisible] = useState(false)
+  const [runtimeComments, setRuntimeComments] = useState<Comment[]>(comments)
+  const [replyToComment, setReplyToComment] = useState<Comment | null>(null)
 
   useEffect(() => {
-    if (state.success) {
+    if (createCommentFormState.success) {
       setText('')
+      setReplyToComment(null)
     }
 
-    if (state.newComment) {
-      setRuntimeComments([state.newComment, ...runtimeComments])
+    if (createCommentFormState.newComment) {
+      if (createCommentFormState.newComment.reply_to) {
+        setRuntimeComments(
+          runtimeComments
+            .map((com) => {
+              if (com.id === createCommentFormState.newComment.reply_to!.id) {
+                return [com, createCommentFormState.newComment]
+              }
+              return com
+            })
+            .flat(),
+        )
+      } else {
+        setRuntimeComments([
+          createCommentFormState.newComment,
+          ...runtimeComments,
+        ])
+      }
     }
-  }, [state])
+  }, [createCommentFormState])
+
+  useEffect(() => {
+    if (
+      deleteCommentFormState.deletedComment &&
+      deleteCommentFormState.success
+    ) {
+      setRuntimeComments(
+        runtimeComments.filter(
+          (com) => deleteCommentFormState.deletedComment!.id !== com.id,
+        ),
+      )
+    }
+  }, [deleteCommentFormState])
 
   if (!currentUser) {
     return (
@@ -50,11 +94,12 @@ export default function ({ d, articleId, currentUser, comments }: Props) {
   }
 
   const onFocus = () => {
-    setFocus(true)
+    setSendButtonVisible(true)
   }
 
   const onBlur = () => {
-    setFocus(false)
+    if (text) return
+    setSendButtonVisible(false)
   }
 
   return open ? (
@@ -79,37 +124,75 @@ export default function ({ d, articleId, currentUser, comments }: Props) {
           </button>
         </header>
 
-        <div className={`${s.comments} container`}>
-          {[...runtimeComments, ...comments].map((com) => (
-            <CommentComponent comment={com} key={com.id} />
+        <section className={`${s.comments} container`}>
+          {runtimeComments.map((com) => (
+            <CommentComponent
+              d={d}
+              comment={com}
+              currentUser={currentUser}
+              deleteCommentAction={deleteCommentAction}
+              setReplyTo={setReplyToComment}
+              key={com.id}
+            />
           ))}
-        </div>
+        </section>
 
-        <footer className={`${s.footer} container`}>
-          <Avatar
-            user={currentUser}
-            width={39}
-            height={39}
-            className={s.avatar}
-          />
+        <footer className={s.footer}>
+          {replyToComment && (
+            <section className={`${s.replyTo} container`}>
+              <span>{d.comments.reply_to_row_text}&nbsp;</span>
+              <span className={s.replyToName}>
+                {(replyToComment.user as User).first_name}{' '}
+                {(replyToComment.user as User).last_name}.
+              </span>
+              <button
+                className={s.replyToCancel}
+                type="button"
+                onClick={() => setReplyToComment(null)}
+              >
+                {d.comments.cancel_reply_to_text}
+              </button>
+            </section>
+          )}
 
-          <form action={formAction} className={s.form}>
-            <input type="hidden" name="article-id" value={articleId} />
-            <input type="hidden" name="user-id" value={currentUser.id} />
-            <TextareaAutosize
-              className={s.textInput}
-              name="text"
-              placeholder={d.comments.placeholder_text}
-              value={text}
-              onInput={onInput}
-              onFocus={onFocus}
-              onBlur={onBlur}
+          <section className={`${s.userComment} container`}>
+            <Avatar
+              user={currentUser}
+              width={39}
+              height={39}
+              className={s.avatar}
             />
 
-            {focus && (
-              <Submit className={s.submit}>{d.comments.send_text}</Submit>
-            )}
-          </form>
+            <form action={formAction} className={s.form}>
+              <input type="hidden" name="article-id" value={articleId} />
+              <input type="hidden" name="user-id" value={currentUser.id} />
+              {replyToComment && (
+                <input
+                  type="hidden"
+                  name="reply-to-id"
+                  value={replyToComment.id}
+                />
+              )}
+
+              <TextareaAutosize
+                className={s.textInput}
+                name="text"
+                placeholder={d.comments.placeholder_text}
+                value={text}
+                onInput={onInput}
+                onFocus={onFocus}
+                onBlur={onBlur}
+              />
+
+              {sendButtonVisible && (
+                <Submit className={s.submit}>
+                  {replyToComment
+                    ? d.comments.reply_button_text
+                    : d.comments.send_text}
+                </Submit>
+              )}
+            </form>
+          </section>
         </footer>
       </section>,
       document.body,

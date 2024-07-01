@@ -54,8 +54,13 @@
     }
   },
   "comments": {
-    "title_text": "Comments",
-    "send_text": "Send",
-    "placeholder_text": "Что думаете? Напишите комментарий"
+    "title_text": "टिप्पणियाँ",
+    "send_text": "भेजें",
+    "placeholder_text": "आपको क्या लगता है? एक टिप्पणी लिखें",
+    "reply_to_row_text": "करने के लिए जवाब",
+    "reply_text": "जवाब दे दो",
+    "reply_button_text": "जवाब दे दो",
+    "cancel_reply_to_text": "रद्द करें",
+    "delete_text": "हटाएं"
   }
 }

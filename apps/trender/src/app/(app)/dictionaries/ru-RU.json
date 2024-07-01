@@ -56,6 +56,11 @@
   "comments": {
     "title_text": "Комментарии",
     "send_text": "Отправить",
-    "placeholder_text": "Что думаете? Напишите комментарий"
+    "placeholder_text": "Что думаете? Напишите комментарий",
+    "reply_to_row_text": "Ответить",
+    "reply_text": "Ответить",
+    "reply_button_text": "Ответить",
+    "cancel_reply_to_text": "Отменить",
+    "delete_text": "Удалить"
   }
 }
